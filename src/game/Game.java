@@ -4,7 +4,7 @@ import java.util.List;
 public abstract class Game {
 	protected Board board;
 	List<Player> players;
-	int currentPlayer = 1, nbPlayers = 0;
+	int currentPlayer = 0, nbPlayers = 0;
 	
 	public abstract void init();
 	public abstract boolean isGameOver();
