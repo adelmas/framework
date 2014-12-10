@@ -5,9 +5,9 @@ import game.Action;
 import game.Player;
 
 
-public class humanPlayer extends Player {
+public class HumanPlayer extends Player {
 
-	public humanPlayer(String name, int couleur, int type, char symbol) {
+	public HumanPlayer(String name, int couleur, int type, char symbol) {
 		super(name, couleur, type, symbol);
 	}
 
@@ -17,11 +17,11 @@ public class humanPlayer extends Player {
 		
 		System.out.println("Action ?");
 		
-		/* Coordonnées en entrée */
+		/* Coordonnees en entree */
 		int x = scan.nextInt();
 		int y = scan.nextInt();
 
-		return new ActionPUT("PUT", 1, x, y, symbol);
+		return new ActionPUT("PUT", 1, x, y, getSymbol());
 	}
 	
 }

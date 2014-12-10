@@ -2,10 +2,10 @@ package game;
 import java.util.List;
 
 public abstract class Player {
-	protected String name = "";
-	protected int couleur = 0;
-	protected int type = 0;
-	protected char symbol;
+	private String name = "";
+	private int couleur = 0;
+	private int type = 0;
+	private char symbol;
 	
 	public Player(String name, int couleur, int type, char symbol) {
 		this.name = name;
@@ -18,6 +18,10 @@ public abstract class Player {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public char getSymbol() {
+		return symbol;
 	}
 	
 	public String toString() {

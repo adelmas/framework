@@ -1,8 +1,8 @@
 package game;
 
 public class Board {
-	protected char[][] board;
-	protected int width = 0, height = 0;
+	private char[][] board;
+	private int width = 0, height = 0;
 	
 	public Board(int w, int h) {
 		board = new char[w][h];
@@ -21,6 +21,17 @@ public class Board {
 		if (board[x][y] == 0)
 			return true;
 		return false;
+	}
+	
+	public char getCase(int x, int y) {
+		return board[x][y];
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+	public int getHeight() {
+		return height;
 	}
 	
 	public String toString() {
