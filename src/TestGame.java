@@ -14,19 +14,24 @@ public class TestGame extends Game {
 		
 		/* Line / col */
 		for (i=0; i<b.getHeight(); i++) {
-			piece = b.getCase(i, 0).getType();
+			over = 1;
+			piece = b.getCase(i, i).getType();
 			if (piece == "vide")
 				continue;
 			for (int j=0; j<b.getWidth(); j++) {
-				if (b.getCase(i, j).getType() != piece)
+				if (b.getCase(i, j).getType() != piece) {
 					over = 0;
+					break;
+				}
 			}
 			if (over == 1)
 				return true;
 			over = 1;
 			for (int k=0; k<b.getHeight(); k++) {
-				if (b.getCase(k, i).getType() != piece)
+				if (b.getCase(k, i).getType() != piece) {
 					over = 0;
+					break;
+				}
 			}
 			if (over == 1)
 				return true;
@@ -37,8 +42,10 @@ public class TestGame extends Game {
 		piece = b.getCase(0,0).getType();
 		if (piece != "vide") {
 			for (i=0; i<b.getWidth(); i++) {
-				if (b.getCase(i, i).getType() != piece)
+				if (b.getCase(i, i).getType() != piece) {
 					over = 0;
+					break;
+				}
 			}
 			if (over == 1)
 				return true;
@@ -48,8 +55,10 @@ public class TestGame extends Game {
 		if (piece != "vide") {
 			over = 1;
 			for (i=0; i<b.getWidth(); i++) {
-				if (b.getCase(b.getWidth()-(i+1), i).getType() != piece)
+				if (b.getCase(b.getWidth()-(i+1), i).getType() != piece) {
 					over = 0;
+					break;
+				}
 			}
 			if (over == 1)
 				return true;
@@ -66,7 +75,7 @@ public class TestGame extends Game {
 		listPlayers.add(new HumanPlayer("player2", 2, 2, "O"));
 
 		g.init();
-		g.setBoard(new Board(3, 3));
+		g.setBoard(new BoardMorpion(3, 3));
 		g.setPlayers(listPlayers);
 
 		g.play();

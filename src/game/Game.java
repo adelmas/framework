@@ -27,7 +27,6 @@ public abstract class Game {
 			Player player = players.get(currentPlayer);
 			Action action = player.getAction(null);
 			
-			System.out.println(action.toString());
 			action.doAction(board);
 			
 			System.out.println(toString());
