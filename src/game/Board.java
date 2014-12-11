@@ -1,53 +1,121 @@
 package game;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class Board {
-	private char[][] board;
-	private int width = 0, height = 0;
 	
-	public Board(int w, int h) {
-		board = new char[w][h];
-		width = w; height = h;
-	}
+	/* Attributes */
 	
-	public void setCase(char car, int x, int y) {
-		try {
-			board[x][y] = car;
-		} catch (ArrayIndexOutOfBoundsException e) {
-			System.out.println("Position hors du plateau.");
-		}
-	}
+	private Case[][] _board;
+	private int _width;
+	private int _height;
 	
-	public boolean isEmpty(int x, int y) {
-		if (board[x][y] == 0)
-			return true;
-		return false;
-	}
+	/* Constructor */
 	
-	public char getCase(int x, int y) {
-		return board[x][y];
-	}
-	
-	public int getWidth() {
-		return width;
-	}
-	public int getHeight() {
-		return height;
-	}
-	
-	public String toString() {
-		String strGrid = "";
-		char car;
+	public Board(int h,int w){
+		_width = w;
+		_height = h;
+		_board = new Case[h][w];
 		
-		for (int i=0; i<board.length; i++) {
-			for (int j=0; j<board[i].length; j++) {
-				car = board[i][j];
-				if (car == 0)
-					car = ' ';
-				strGrid += car + "|";
+		for(int i = 0 ; i < _height ; i++){
+			for(int j = 0 ; j < _width ; j++){
+				_board[i][j] = new Case("vide");
 			}
-			strGrid += "\n";
 		}
+	}
+	
+	/* Method */
+	
+	public Case[][] getBoard() {
+		return _board;
+	}
+	
+	public Case getCase(int h, int w){
+		return _board[h][w];
+	}	
+	
+	public int getHeight(){
+		return _height;
+	}
+	
+	public int getWidth(){
+		return _width;
+	}
+	
+	public void setCase(Case c, int x, int y) {
+		try 
+		{
+			_board[x][y] = c;
+		} 
+		catch (ArrayIndexOutOfBoundsException e) 
+		{
+			System.out.println("error : position out of grid");
+		}
+	}
+	
+	public boolean isEmpty(int x, int y){
+		return (_board[x][y].isEmpty());	
+	}	
+	
+	public void initBoard(String fich){
 		
-		return "Board[" + width + "][" + height + "]:\n" + strGrid;
+		File file = new File(fich);
+		FileInputStream fis = null;
+		
+		try 
+		{
+			fis = new FileInputStream(file);
+			
+			System.out.println(fis.available() + " bytes sont disponibles pour la copie");
+			
+			int content;			
+			int i = 0;
+			while ((content = fis.read()) != -1) {
+				switch(content){
+					case 'O':
+						_board[i/_width][i%_width].setType("O");
+						i++;
+						break;
+					case 'X':
+						_board[i/_width][i%_width].setType("X");
+						i++;
+						break;
+					case '.':
+						_board[i/_width][i%_width].setType("vide");
+						i++;
+						break;	
+				}
+			}
+		} 
+		catch (FileNotFoundException e) {e.printStackTrace();} 
+		catch (IOException e) {e.printStackTrace();}
+		try {fis.close();} catch (IOException e) {e.printStackTrace();}
+	}
+	
+	public String toString(){
+
+		String str = "";
+		
+		for (int i = 0 ; i < _height ; i++ ){
+			for (int j = 0 ; j < _width ; j++){
+				switch(_board[i][j].getType()){
+					case "O":
+						str += "O";
+					break;
+					case "X":
+						str += "X";
+					break;
+					case "vide":
+						str += " ";
+					break;
+				}
+				str += "|";
+			}
+			str += "\n";
+		}
+		return str;
 	}
 }

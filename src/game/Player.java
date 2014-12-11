@@ -5,9 +5,9 @@ public abstract class Player {
 	private String name = "";
 	private int couleur = 0;
 	private int type = 0;
-	private char symbol;
+	private String symbol;
 	
-	public Player(String name, int couleur, int type, char symbol) {
+	public Player(String name, int couleur, int type, String symbol) {
 		this.name = name;
 		this.couleur = couleur;
 		this.type = type;
@@ -20,7 +20,7 @@ public abstract class Player {
 		return name;
 	}
 	
-	public char getSymbol() {
+	public String getSymbol() {
 		return symbol;
 	}
 	
