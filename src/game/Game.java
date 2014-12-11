@@ -30,10 +30,11 @@ public abstract class Game {
 			System.out.println(action.toString());
 			action.doAction(board);
 			
+			System.out.println(toString());
 			if (isGameOver())
 				break;
+			
 			currentPlayer = (currentPlayer + 1) % nbPlayers;
-			System.out.println(toString());
 		}
 		System.out.println(players.get(currentPlayer).getName() + " remporte la partie !");
 	}
