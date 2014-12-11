@@ -23,16 +23,19 @@ public abstract class Game {
 	}
 	
 	public void play() {
-		while (!isGameOver()) {
+		while (1==1) {
 			Player player = players.get(currentPlayer);
 			Action action = player.getAction(null);
 			
 			System.out.println(action.toString());
 			action.doAction(board);
 			
+			if (isGameOver())
+				break;
 			currentPlayer = (currentPlayer + 1) % nbPlayers;
 			System.out.println(toString());
 		}
+		System.out.println(players.get(currentPlayer).getName() + " remporte la partie !");
 	}
 	
 	public String toString() {

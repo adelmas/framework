@@ -36,10 +36,15 @@ public class Board {
 	
 	public String toString() {
 		String strGrid = "";
+		char car;
 		
 		for (int i=0; i<board.length; i++) {
-			for (int j=0; j<board[i].length; j++)
-				strGrid += board[i][j] + "|";
+			for (int j=0; j<board[i].length; j++) {
+				car = board[i][j];
+				if (car == 0)
+					car = ' ';
+				strGrid += car + "|";
+			}
 			strGrid += "\n";
 		}
 		
