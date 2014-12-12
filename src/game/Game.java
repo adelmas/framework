@@ -1,5 +1,10 @@
 package game;
+import action.Action;
+import board.*;
+
 import java.util.List;
+
+import joueur.Player;
 
 public abstract class Game {
 	private Board board;

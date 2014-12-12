@@ -1,4 +1,5 @@
-package game;
+package board;
+
 
 public abstract class Board {
 	

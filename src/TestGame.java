@@ -1,6 +1,10 @@
 import game.*;
+import board.*;
+
 import java.util.List;
 import java.util.LinkedList;
+
+import joueur.Player;
 
 public class TestGame extends Game {
 	public void init() {

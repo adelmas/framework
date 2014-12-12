@@ -1,4 +1,6 @@
-package game;
+package action;
+
+import board.Board;
 
 public abstract class Action {
 	protected String action = "";

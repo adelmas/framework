@@ -1,6 +1,6 @@
-package game;
+package board;
 
-import game.Player;
+import joueur.Player;
 
 public class Piece {
 	

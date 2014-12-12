@@ -1,5 +1,7 @@
-package game;
+package joueur;
 import java.util.List;
+
+import action.Action;
 
 public abstract class Player {
 	private String name = "";

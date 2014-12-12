@@ -1,3 +1,6 @@
+import action.Action;
+import board.Board;
+import board.Case;
 import game.*;
 
 public class ActionPUT extends Action {

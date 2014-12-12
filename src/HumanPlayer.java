@@ -1,8 +1,8 @@
 import java.util.List;
 import java.util.Scanner;
 
-import game.Action;
-import game.Player;
+import action.Action;
+import joueur.Player;
 
 
 public class HumanPlayer extends Player {
