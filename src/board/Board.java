@@ -1,5 +1,5 @@
 package board;
-
+import board.*;
 
 public abstract class Board {
 	

@@ -11,8 +11,8 @@ public class ActionPUT extends Action {
 
 	@Override
 	public void doAction(Board board) {
-		if (board.isEmpty(x, y))
-			board.setCase(new Case(symbol), x, y);
+		if (board.isEmpty(getX(), getY()))
+			board.setCase(new Case(getSymbol()), getX(), getY());
 	}
 
 }
