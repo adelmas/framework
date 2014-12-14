@@ -30,4 +30,11 @@ public abstract class Player {
 		return "Player: " + name + "\n";
 	}
 	
+	
+	public int throwDice(){
+		return (int) Math.round(Math.random()*6);	
+		
+	}
+	
+	
 }
