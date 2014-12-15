@@ -1,4 +1,5 @@
 import game.*;
+import action.*;
 import board.*;
 
 import java.util.List;
@@ -70,6 +71,22 @@ public class TestGame extends Game {
 		}
 		
 		return false;
+	}
+	
+	public void play() {
+		while (1==1) {
+			Player player = getCurrentPlayer();
+			Action action = player.getAction(null);
+			
+			action.doAction(getBoard());
+			
+			System.out.println(toString());
+			if (isGameOver())
+				break;
+			
+			nextPlayer();
+		}
+		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");
 	}
 
 	public static void main(String[] args) {

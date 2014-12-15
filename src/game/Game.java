@@ -27,20 +27,13 @@ public abstract class Game {
 		nbPlayers = players.size();
 	}
 	
-	public void play() {
-		while (1==1) {
-			Player player = players.get(currentPlayer);
-			Action action = player.getAction(null);
-			
-			action.doAction(board);
-			
-			System.out.println(toString());
-			if (isGameOver())
-				break;
-			
-			currentPlayer = (currentPlayer + 1) % nbPlayers;
-		}
-		System.out.println(players.get(currentPlayer).getName() + " remporte la partie !");
+	public abstract void play();
+	
+	public Player getCurrentPlayer() {
+		return players.get(currentPlayer);
+	}
+	public void nextPlayer() {
+		currentPlayer = (currentPlayer + 1) % nbPlayers;
 	}
 	
 	public String toString() {
