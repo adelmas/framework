@@ -8,17 +8,17 @@ public class Case {
 	/* Attributes */
 	
 	private String _typeCase;
-	private List<Piece> _Pieces;
+	private List<Piece> _pieces;
 	
 	/* Constructor */
 	
-	public Case(){
-		_Pieces = new LinkedList<Piece>();
+	public Case() {
+		_pieces = new LinkedList<Piece>();
 		_typeCase = "vide";
 	}
 	
 	public Case(String type){
-		_Pieces = new LinkedList<Piece>();
+		_pieces = new LinkedList<Piece>();
 		_typeCase = type;
 	}
 	
@@ -33,18 +33,22 @@ public class Case {
 	}
 	
 	public List<Piece> getPieces(){
-		return _Pieces;
+		return _pieces;
+	}
+	
+	public Piece getFirstPiece() {
+		return _pieces.get(0);
 	}
 	
 	public void removePiece(Piece P){
-		_Pieces.remove(P);
+		_pieces.remove(P);
 	}
 
 	public void addPiece(Piece P){
-		_Pieces.add(P);
+		_pieces.add(P);
 	}
 	
 	public boolean isEmpty(){
-		return _Pieces.isEmpty();
+		return _pieces.isEmpty();
 	}
 }

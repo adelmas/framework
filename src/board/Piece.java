@@ -7,13 +7,13 @@ public class Piece {
 	/* Attributes */
 	
 	private Player _player;
-	private String _typePiece;
+	private int _type;
 	
 	/* Constructor */
 	
-	public Piece(Player player, String type){
+	public Piece(Player player, int type){
 		_player = player;
-		_typePiece = type;
+		_type = type;
 	}
 	
 	/* Method */
@@ -22,8 +22,8 @@ public class Piece {
 		return _player;
 	}
 	
-	public String getTypePiece(){
-		return _typePiece;
+	public int getType(){
+		return _type;
 	}
 	
 }

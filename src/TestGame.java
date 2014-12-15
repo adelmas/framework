@@ -11,6 +11,7 @@ public class TestGame extends Game {
 		System.out.println("init()");
 	}
 	
+	/* Obsolète */
 	public boolean isGameOver() {
 		int i, over = 1;
 		String piece = "0";

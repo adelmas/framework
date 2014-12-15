@@ -21,7 +21,7 @@ public class HumanPlayer extends Player {
 		int x = scan.nextInt();
 		int y = scan.nextInt();
 
-		return new ActionPUT("PUT", 1, x, y,  getSymbol());
+		return new ActionPUT("PUT", 1, x, y,  this);
 	}
 	
 }

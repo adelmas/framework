@@ -1,11 +1,10 @@
 import game.*;
+import board.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import board.Board;
 
 public class BoardMorpion extends Board {
 
@@ -55,17 +54,14 @@ public class BoardMorpion extends Board {
 		
 		for (int i = 0 ; i < getHeight() ; i++ ){
 			for (int j = 0 ; j < getWidth() ; j++){
-				switch(getBoard()[i][j].getType()){
-					case "O":
-						str += "O";
-					break;
-					case "X":
-						str += "X";
-					break;
-					case "vide":
-						str += " ";
-					break;
-				}
+				Case c = getCase(i, j);
+				if (c.isEmpty())
+					str += " ";
+				else if (c.getFirstPiece().getPlayer().getCouleur() == 1)
+					str += "X";
+				else
+					str += "O";
+				
 				str += "|";
 			}
 			str += "\n";

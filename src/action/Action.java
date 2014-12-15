@@ -1,33 +1,34 @@
 package action;
 
 import board.Board;
+import joueur.Player;
 
 public abstract class Action {
-	private String action = "";
-	private int type = 0, x = 0, y = 0;
-	private String symbol;
+	private String _action = "";
+	private int _type = 0, _x = 0, _y = 0;
+	private Player _player;
 	
-	public Action(String action, int type, int x, int y, String symbol) {
-		this.action = action;
-		this.type = type;
-		this.x = x;
-		this.y = y;
-		this.symbol = symbol;
+	public Action(String action, int type, int x, int y, Player player) {
+		_action = action;
+		_type = type;
+		_x = x;
+		_y = y;
+		_player = player;
 	}
 	
 	public abstract void doAction(Board board);
 	
 	public int getX() {
-		return x;
+		return _x;
 	}
 	public int getY() {
-		return y;
+		return _y;
 	}
-	public String getSymbol() {
-		return symbol;
+	public Player getPlayer() {
+		return _player;
 	}
 	
 	public String toString() {
-		return "Action() " + action + "(" + type + ") " + x + ", " + y + "\n";
+		return "Action() " + _action + "(" + _type + ") " + _x + ", " + _y + "\n";
 	}
 }

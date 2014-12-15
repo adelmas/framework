@@ -29,6 +29,9 @@ public abstract class Player {
 	public String toString() {
 		return "Player: " + name + "\n";
 	}
+	public int getCouleur() {
+		return couleur;
+	}
 	
 	
 	public int throwDice(){
