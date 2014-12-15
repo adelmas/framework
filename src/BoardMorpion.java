@@ -7,10 +7,56 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class BoardMorpion extends Board {
-
+	
+	private int _height,_width;
+	private Case[][] _board;
 	
 	public BoardMorpion(int h, int w) {
-		super(h, w);
+		super();
+		_height = h;
+		_width = w;
+		_board = new Case[_height][_width];
+		
+		for(int i = 0 ; i < _height ; i++){
+			for(int j = 0 ; j < _width ; j++){
+				_board[i][j] = new Case("vide");
+			}
+		}
+	}
+	
+	public void setCase(Case c, int x, int y) {
+		try 
+		{
+			_board[x][y] = c;
+		} 
+		catch (ArrayIndexOutOfBoundsException e) 
+		{
+			System.out.println("error : position out of grid");
+		}
+	}
+	
+	public Case getCase(int h, int w){
+		return _board[h][w];
+	}
+	
+	public Case[][] getBoard() {
+		return _board;
+	}
+	
+	public int getWidth(){
+		return _width;
+	}
+	
+	public int getHeight(){
+		return _height;
+	}
+	
+	public boolean isEmpty(int x, int y) {
+		try {
+			return (getBoard()[x][y].isEmpty());
+		} catch (ArrayIndexOutOfBoundsException e) {
+			return false;
+		}
 	}
 
 	public void initBoard(String fich){

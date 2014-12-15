@@ -1,8 +1,7 @@
+import joueur.Player;
 import action.Action;
 import board.Board;
-import board.*;
-import joueur.*;
-import game.*;
+import board.Piece;
 
 public class ActionPUT extends Action {
 
@@ -12,8 +11,9 @@ public class ActionPUT extends Action {
 
 	@Override
 	public void doAction(Board board) {
-		if (board.isEmpty(getX(), getY()))
-			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+		Board boardm = (BoardMorpion) board;
+		if (boardm.isEmpty(getX(), getY()))
+			boardm.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
 	}
 
 }
