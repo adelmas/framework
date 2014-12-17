@@ -14,6 +14,38 @@ public class TestGame extends Game {
 		System.out.println("init()");
 	}
 	
+	public boolean isValid(int x, int y){
+		return(x < 5 && x >= 0 && y < 6 && y >=0);
+	}
+	
+	public boolean plusDeDeuxPions(BoardWali boardW, int x, int y, Player play){
+		int comptVert = 0;
+		int comptHori = 0;
+		// décompte vertical
+		int i = 1;
+		while(isValid(x+i,y) && boardW.getBoard()[x+i][y].getPieces().get(0).getPlayer() == play){
+			comptVert++;
+			i++;
+		}
+		i = 1;
+		while(isValid(x-i,y) && boardW.getBoard()[x-i][y].getPieces().get(0).getPlayer() == play){
+			comptVert++;
+			i++;
+		}
+		// décompte horizontal
+		i = 1;
+		while(isValid(x,y+i) && boardW.getBoard()[x][y+i].getPieces().get(0).getPlayer() == play){
+			comptHori++;
+			i++;
+		}
+		i = 1;
+		while(isValid(x,y-i) && boardW.getBoard()[x][y-i].getPieces().get(0).getPlayer() == play){
+			comptHori++;
+			i++;
+		}
+		return(Math.max(comptHori, comptVert)>2);
+	}
+	
 	/* Obsolète */
 	public boolean isGameOver() {
 		return false;
