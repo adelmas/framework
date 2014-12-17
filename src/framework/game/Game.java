@@ -26,6 +26,9 @@ public abstract class Game {
 		this.players = players;
 		nbPlayers = players.size();
 	}
+	public List<Player> getPlayers() {
+		return players;
+	}
 	
 	public abstract void play();
 	

@@ -49,6 +49,10 @@ public class TestGame extends Game {
 	
 	/* Obsolète */
 	public boolean isGameOver() {
+		for (Player player : getPlayers()) {
+			if (player.getScore() == 0)
+				return true;
+		}
 		return false;
 	}
 	
@@ -89,6 +93,10 @@ public class TestGame extends Game {
 				continue;
 			}
 			
+			if (phase == 1) {
+				/* Test alignement 3 pièces et capture */
+			}
+			
 			System.out.println(toString());
 			if (isGameOver())
 				break;
@@ -105,8 +113,8 @@ public class TestGame extends Game {
 		List<Player> listPlayers = new LinkedList<Player>();
 		Game g = new TestGame();
 		
-		listPlayers.add(new HumanPlayer("player1", 1, 1, "X"));
-		listPlayers.add(new HumanPlayer("player2", 2, 2, "O"));
+		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", 12));
+		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", 12));
 
 		g.init();
 		g.setBoard(new BoardWali());

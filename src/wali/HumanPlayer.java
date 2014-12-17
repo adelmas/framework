@@ -11,8 +11,8 @@ import framework.joueur.Player;
 
 public class HumanPlayer extends Player {
 
-	public HumanPlayer(String name, int couleur, int type, String symbol) {
-		super(name, couleur, type, symbol);
+	public HumanPlayer(String name, int couleur, int type, String symbol, int score) {
+		super(name, couleur, type, symbol, score);
 	}
 
 	@Override
