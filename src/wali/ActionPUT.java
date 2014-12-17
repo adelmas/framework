@@ -13,9 +13,8 @@ public class ActionPUT extends Action {
 
 	@Override
 	public void doAction(Board board) {
-		Board boardm = (BoardMorpion) board;
-		if (boardm.isEmpty(getX(), getY()))
-			boardm.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+		if (board.isEmpty(getX(), getY()))
+			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
 	}
 
 }
