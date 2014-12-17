@@ -16,69 +16,29 @@ public class TestGame extends Game {
 	
 	/* Obsolète */
 	public boolean isGameOver() {
-		int i, over = 1;
-		String piece = "0";
-		Board b = getBoard();
-		
-		/* Line / col */
-		for (i=0; i<b.getHeight(); i++) {
-			over = 1;
-			piece = b.getCase(i, i).getType();
-			if (piece == "vide")
-				continue;
-			for (int j=0; j<b.getWidth(); j++) {
-				if (b.getCase(i, j).getType() != piece) {
-					over = 0;
-					break;
-				}
-			}
-			if (over == 1)
-				return true;
-			over = 1;
-			for (int k=0; k<b.getHeight(); k++) {
-				if (b.getCase(k, i).getType() != piece) {
-					over = 0;
-					break;
-				}
-			}
-			if (over == 1)
-				return true;
-		}
-		
-		/* Diag */
-		over = 1;
-		piece = b.getCase(0,0).getType();
-		if (piece != "vide") {
-			for (i=0; i<b.getWidth(); i++) {
-				if (b.getCase(i, i).getType() != piece) {
-					over = 0;
-					break;
-				}
-			}
-			if (over == 1)
-				return true;
-		}
-		
-		piece = b.getCase(b.getWidth()-1, 0).getType();
-		if (piece != "vide") {
-			over = 1;
-			for (i=0; i<b.getWidth(); i++) {
-				if (b.getCase(b.getWidth()-(i+1), i).getType() != piece) {
-					over = 0;
-					break;
-				}
-			}
-			if (over == 1)
-				return true;
-		}
-		
 		return false;
 	}
 	
 	public void play() {
+		int phase = 0, nb = 0;
+		List<Action> actions;
+		
 		while (1==1) {
 			Player player = getCurrentPlayer();
-			Action action = player.getAction(null);
+			
+			if (phase == 0) {
+				System.out.println("Phase "+phase+" : pose");
+				actions = new LinkedList<Action>();
+				actions.add(new ActionPUT("PUT", 0, 0, 0, player));
+			}
+			else {
+				System.out.println("Phase "+phase+" : capture");
+				actions = new LinkedList<Action>();
+				actions.add(new ActionPUT("MOVE", 0, 0, 0, player)); /* ActionPUT -> ActionMOVE */
+			}
+			
+			System.out.println("----------\n"+player.getName());
+			Action action = player.getAction(actions);
 			
 			action.doAction(getBoard());
 			
@@ -87,6 +47,9 @@ public class TestGame extends Game {
 				break;
 			
 			nextPlayer();
+			nb++;
+			if (nb > 24 && phase == 0)
+				phase = 1;
 		}
 		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");
 	}
@@ -99,7 +62,7 @@ public class TestGame extends Game {
 		listPlayers.add(new HumanPlayer("player2", 2, 2, "O"));
 
 		g.init();
-		g.setBoard(new BoardMorpion(3, 3));
+		g.setBoard(new BoardMorpion(6, 6));
 		g.setPlayers(listPlayers);
 
 		g.play();
