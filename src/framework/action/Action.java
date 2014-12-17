@@ -55,7 +55,7 @@ public abstract class Action {
 		_player = player;
 	}
 	
-	public abstract void doAction(Board board);
+	public abstract boolean doAction(Board board);
 	
 	public void give_up()
 	{

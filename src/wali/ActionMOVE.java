@@ -9,25 +9,25 @@ import framework.board.Piece;
 public class ActionMOVE extends Action {
 	
 	// Attributes
-	private int oldX = 0, oldY = 0;
+	private int _oldX = 0, _oldY = 0;
 	
 	public ActionMOVE(String action, int type, int curX, int curY, int x, int y, Player player) {
 		super(action, type, x, y, player);
-		oldX = curX;
-		oldY = curY;
+		_oldX = curX;
+		_oldY = curY;
 	}
 
 	@Override
-	public void doAction(Board board) {
-		if (board.isEmpty(getX(), getY()) && !board.isEmpty(oldX, oldY))
-		{
-			Case c = board.getCase(oldX, oldY);
-			if(c.getFirstPiece().getPlayer().equals(super.getPlayer()))
-			{
-			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
-	
-			c.removePiece(c.getFirstPiece());
+	public boolean doAction(Board board) {
+		int x = getX(), y = getY();
+		if (board.isEmpty(x, y) && !board.isEmpty(_oldX, _oldY) && (Math.abs(_oldX - x) == 1 || Math.abs(_oldY - y) == 1)) {
+			Case c = board.getCase(_oldX, _oldY);
+			if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {
+				board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+				c.removePiece(c.getFirstPiece());
+				return true;
 			}
 		}
+		return false;
 	}
 }

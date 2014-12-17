@@ -14,11 +14,12 @@ public class ActionREMOVE extends Action {
 	}
 
 	@Override
-	public void doAction(Board board) {
-		if (!board.isEmpty(getX(), getY()))
-		{
+	public boolean doAction(Board board) {
+		if (!board.isEmpty(getX(), getY())) {
 			Case c = board.getCase(getX(), getY());
 			c.removePiece(c.getFirstPiece());
+			return true;
 		}
+		return false;
 	}
 }

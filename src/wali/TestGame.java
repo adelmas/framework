@@ -28,22 +28,23 @@ public class TestGame extends Game {
 			i++;
 		}
 		i = 1;
-		while(isValid(x-i,y) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x-i][y].getFirstPiece().getPlayer() == play){
+		while(isValid(x-i,y) && !boardW.getBoard()[x-i][y].isEmpty() && boardW.getBoard()[x-i][y].getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		// décompte horizontal
 		i = 1;
-		while(isValid(x,y+i) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x][y+i].getFirstPiece().getPlayer() == play){
+		while(isValid(x,y+i) && !boardW.getBoard()[x][y+i].isEmpty() && boardW.getBoard()[x][y+i].getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x,y-i) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x][y-i].getFirstPiece().getPlayer() == play){
+		while(isValid(x,y-i) && !boardW.getBoard()[x][y-i].isEmpty() && boardW.getBoard()[x][y-i].getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
-		return(Math.max(comptHori, comptVert)>2);
+
+		return (Math.max(comptHori, comptVert)>=2);
 	}
 	
 	/* Obsolète */
@@ -65,22 +66,28 @@ public class TestGame extends Game {
 				actions.add(new ActionPUT("PUT", 0, 0, 0, player));
 			}
 			else {
-				System.out.println("Phase "+phase+" : capture");
+				System.out.println("Phase "+phase+" : deplacement");
 				actions = new LinkedList<Action>();
-				actions.add(new ActionPUT("MOVE", 0, 0, 0, player)); /* ActionPUT -> ActionMOVE */
+				actions.add(new ActionMOVE("MOVE", 0, 0, 0, 0, 0, player));
 			}
 			
 			System.out.println("----------\n"+player.getName());
 			Action action = player.getAction(actions);
 			
-			/* Controle des actions */
+			/* ----- Controle des actions ----- */
+			
 			if (phase == 0)
 				valide = plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player);
+			if (valide == true) {
+ 				System.out.println("Action invalide (Game)");
+ 				continue;
+			}
 			
-			if (valide == false)
-				System.out.println("Action invalide");
-			
-			action.doAction(getBoard());
+			/* Execution de l'action si elle est valide */
+			if (!action.doAction(getBoard())) {
+				System.out.println("Action invalide (Action)");
+				continue;
+			}
 			
 			System.out.println(toString());
 			if (isGameOver())
@@ -88,7 +95,7 @@ public class TestGame extends Game {
 			
 			nextPlayer();
 			nb++;
-			if (nb > 24 && phase == 0)
+			if (nb >= 2 && phase == 0)
 				phase = 1;
 		}
 		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");
@@ -108,5 +115,6 @@ public class TestGame extends Game {
 		g.play();
 
 	}
+
 
 }

@@ -12,10 +12,12 @@ public class ActionPUT extends Action {
 	}
 
 	@Override
-	public void doAction(Board board) {
-		Board boardm = (BoardWali) board;
-		if (boardm.isEmpty(getX(), getY()))
-			boardm.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+	public boolean doAction(Board board) {
+		if (board.isEmpty(getX(), getY())) {
+			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+			return true;
+		}
+		return false;
 	}
 
 }

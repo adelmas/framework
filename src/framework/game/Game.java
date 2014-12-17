@@ -1,5 +1,6 @@
 package framework.game;
 import framework.board.*;
+import framework.action.*;
 
 import java.util.List;
 

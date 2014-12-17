@@ -1,5 +1,7 @@
 package wali;
 
+import java.util.Iterator;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,14 +18,28 @@ public class HumanPlayer extends Player {
 	@Override
 	public Action getAction(List<Action> listActions) {
 		Scanner scan = new Scanner(System.in);
+		String strActions = "";
 		
-		System.out.println("Action ?");
+		for (int i=0; i<listActions.size(); i++)
+			strActions += listActions.get(i) + " ";
+		
+		System.out.println("Action ? " + strActions);
 		
 		/* Coordonnees en entree */
 		int x = scan.nextInt();
 		int y = scan.nextInt();
+		
+		Action action = listActions.get(0);
+		if (action instanceof ActionPUT)
+			action = new ActionPUT("PUT", 1, x, y, this);
+		else if (action instanceof ActionMOVE) {
+			System.out.println("Vers ?");
+			int to_x = scan.nextInt();
+			int to_y = scan.nextInt();
+			action = new ActionMOVE("MOVE", 0, x, y, to_x, to_y, this);
+		}
 
-		return new ActionPUT("PUT", 1, x, y,  this);
+		return action;
 	}
 	
 }
