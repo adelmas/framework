@@ -4,8 +4,6 @@ public abstract class Board {
 		
 	public Board(){};
 	
-	public abstract Case[][] getBoard();
-	
 	public abstract Case getCase(int h, int w);
 	
 	public abstract int getHeight();

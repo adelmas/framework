@@ -60,5 +60,26 @@ public class BoardWali extends Board{
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
-	}			
+	}
+	
+	public String toString(){
+
+		String str = "";
+		
+		for (int i = 0 ; i < getHeight() ; i++ ){
+			for (int j = 0 ; j < getWidth() ; j++){
+				Case c = getCase(i, j);
+				if (c.isEmpty())
+					str += " ";
+				else if (c.getFirstPiece().getPlayer().getCouleur() == 1)
+					str += "X";
+				else
+					str += "O";
+				
+				str += "|";
+			}
+			str += "\n";
+		}
+		return str;
+	}
 }

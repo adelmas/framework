@@ -23,23 +23,23 @@ public class TestGame extends Game {
 		int comptHori = 0;
 		// décompte vertical
 		int i = 1;
-		while(isValid(x+i,y) && boardW.getBoard()[x+i][y].getPieces().get(0).getPlayer() == play){
+		while(isValid(x+i,y) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x+i][y].getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x-i,y) && boardW.getBoard()[x-i][y].getPieces().get(0).getPlayer() == play){
+		while(isValid(x-i,y) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x-i][y].getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		// décompte horizontal
 		i = 1;
-		while(isValid(x,y+i) && boardW.getBoard()[x][y+i].getPieces().get(0).getPlayer() == play){
+		while(isValid(x,y+i) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x][y+i].getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x,y-i) && boardW.getBoard()[x][y-i].getPieces().get(0).getPlayer() == play){
+		while(isValid(x,y-i) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x][y-i].getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
@@ -54,6 +54,7 @@ public class TestGame extends Game {
 	public void play() {
 		int phase = 0, nb = 0;
 		List<Action> actions;
+		boolean valide = false;
 		
 		while (1==1) {
 			Player player = getCurrentPlayer();
@@ -71,6 +72,13 @@ public class TestGame extends Game {
 			
 			System.out.println("----------\n"+player.getName());
 			Action action = player.getAction(actions);
+			
+			/* Controle des actions */
+			if (phase == 0)
+				valide = plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player);
+			
+			if (valide == false)
+				System.out.println("Action invalide");
 			
 			action.doAction(getBoard());
 			
@@ -94,7 +102,7 @@ public class TestGame extends Game {
 		listPlayers.add(new HumanPlayer("player2", 2, 2, "O"));
 
 		g.init();
-		g.setBoard(new BoardMorpion(6, 6));
+		g.setBoard(new BoardWali());
 		g.setPlayers(listPlayers);
 
 		g.play();
