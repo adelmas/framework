@@ -19,9 +19,10 @@ public class FrameWali extends Frame {
 	FrameWali(Game g) {
 		super();
 		_container = new JPanel();
-		this.setTitle("Test Wali");
-		this.setSize(560,530);
-		this.setLocationRelativeTo(null);
+		setTitle("Test Wali");
+		setResizable(false);
+		setSize(540,514);
+		setLocationRelativeTo(null);
 		pWali = new PanelWali();
 		pWali.init(g);
 		initFrame();
