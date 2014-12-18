@@ -47,7 +47,6 @@ public class TestGame extends Game {
 		return (Math.max(comptHori, comptVert)>=2);
 	}
 	
-	/* Obsolète */
 	public boolean isGameOver() {
 		for (Player player : getPlayers()) {
 			if (player.getScore() == 0)
@@ -94,7 +93,13 @@ public class TestGame extends Game {
 			}
 			
 			if (phase == 1) {
-				/* Test alignement 3 pièces et capture */
+				if (plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player)) {
+					actions = new LinkedList<Action>();
+					actions.add(new ActionREMOVE("REMOVE", 0, 0, 0, player));
+					do {
+						action = player.getAction(actions);
+					} while (!action.doAction(getBoard()));
+				}
 			}
 			
 			System.out.println(toString());
@@ -103,7 +108,7 @@ public class TestGame extends Game {
 			
 			nextPlayer();
 			nb++;
-			if (nb >= 2 && phase == 0)
+			if (nb >= 6 && phase == 0)
 				phase = 1;
 		}
 		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");

@@ -15,7 +15,7 @@ public class ActionREMOVE extends Action {
 
 	@Override
 	public boolean doAction(Board board) {
-		if (!board.isEmpty(getX(), getY())) {
+		if (!board.isEmpty(getX(), getY()) && board.getCase(getX(), getY()).getFirstPiece().getPlayer() != getPlayer()) {
 			Case c = board.getCase(getX(), getY());
 			c.removePiece(c.getFirstPiece());
 			return true;

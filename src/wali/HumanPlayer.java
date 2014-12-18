@@ -1,7 +1,5 @@
 package wali;
 
-import java.util.Iterator;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -38,6 +36,8 @@ public class HumanPlayer extends Player {
 			int to_y = scan.nextInt();
 			action = new ActionMOVE("MOVE", 0, x, y, to_x, to_y, this);
 		}
+		else if (action instanceof ActionREMOVE)
+			action = new ActionREMOVE("REMOVE", 0, x, y, this);
 
 		return action;
 	}
