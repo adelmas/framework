@@ -97,9 +97,13 @@ public class TestGame extends Game {
 				if (plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player)) {
 					actions = new LinkedList<Action>();
 					actions.add(new ActionREMOVE("REMOVE", 0, 0, 0, player));
+					Player targetPlayer;
 					do {
 						action = player.getAction(actions);
+						targetPlayer = getBoard().getCase(action.getX(), action.getY()).getFirstPiece().getPlayer();
 					} while (!action.doAction(getBoard()));
+					targetPlayer.decreaseScore(1);
+					System.out.println("Score " + targetPlayer.getName() + " : " + targetPlayer.getScore());
 				}
 			}
 			
