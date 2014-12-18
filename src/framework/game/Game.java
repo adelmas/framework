@@ -3,10 +3,11 @@ import framework.board.*;
 import framework.action.*;
 
 import java.util.List;
+import java.util.Observable;
 
 import framework.joueur.Player;
 
-public abstract class Game {
+public abstract class Game extends Observable {
 	private Board board;
 	List<Player> players;
 	private int currentPlayer = 0, nbPlayers = 0;

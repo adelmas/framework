@@ -1,6 +1,7 @@
 package wali;
 
 import framework.game.*;
+import framework.graphics.Frame;
 import framework.action.*;
 import framework.board.*;
 
@@ -102,6 +103,8 @@ public class TestGame extends Game {
 				}
 			}
 			
+			setChanged();
+			notifyObservers();
 			System.out.println(toString());
 			if (isGameOver())
 				break;
@@ -122,9 +125,12 @@ public class TestGame extends Game {
 		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", 12));
 
 		g.init();
-		g.setBoard(new BoardWali());
+		
+		Board b = new BoardWali();
+		g.setBoard(b);
 		g.setPlayers(listPlayers);
 
+		Frame f = new FrameWali(g);
 		g.play();
 
 	}
