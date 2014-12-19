@@ -105,7 +105,7 @@ public class BoardMorpion extends Board {
 				Case c = getCase(i, j);
 				if (c.isEmpty())
 					str += " ";
-				else if (c.getFirstPiece().getPlayer().getCouleur() == 1)
+				else if (c.getFirstPiece().getPlayer().getColor() == 1)
 					str += "X";
 				else
 					str += "O";

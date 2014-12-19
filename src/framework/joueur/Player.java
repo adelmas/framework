@@ -4,48 +4,48 @@ import java.util.List;
 import framework.action.Action;
 
 public abstract class Player {
-	private String name = "";
-	private int couleur = 0;
-	private int type = 0;
-	private String symbol;
-	private int score = 0;
+	private String _name = "";
+	private int _color = 0;
+	private int _type = 0;
+	private String _symbole;
+	private int _score = 0;
 	
-	public Player(String name, int couleur, int type, String symbol, int score) {
-		this.name = name;
-		this.couleur = couleur;
-		this.type = type;
-		this.symbol = symbol;
-		this.score = score;
+	public Player(String name, int color, int type, String symbol, int score) {
+		_name = name;
+		_color = color;
+		_type = type;
+		_symbole = symbol;
+		_score = score;
 	}
 	
 	public abstract Action getAction(List<Action> listActions);
 	
 	public String getName() {
-		return name;
+		return _name;
 	}
 	
 	public String getSymbol() {
-		return symbol;
+		return _symbole;
 	}
 	
 	public String toString() {
-		return "Player: " + name + "\n";
+		return "Player: " + _name + "\n";
 	}
-	public int getCouleur() {
-		return couleur;
+	public int getColor() {
+		return _color;
 	}
 	
 	public void increaseScore(int i) {
-		score += i;
+		_score += i;
 	}
 	public void decreaseScore(int i) {
-		score -= i;
+		_score -= i;
 	}
 	public void setScore(int s) {
-		score = s;
+		_score = s;
 	}
 	public int getScore() {
-		return score;
+		return _score;
 	}
 	
 	public int throwDice(){

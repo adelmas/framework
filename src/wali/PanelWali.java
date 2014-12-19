@@ -36,9 +36,9 @@ public class PanelWali extends Panel {
 				for(int i=0;i<5;i++){
 					for(int j=0;j<6;j++){
 						Case c = _board.getCase(i,j);
-						if(!c.isEmpty() && c.getFirstPiece().getPlayer().getCouleur() == 1)
+						if(!c.isEmpty() && c.getFirstPiece().getPlayer().getColor() == 1)
 							g.drawImage(stone,26+j*81,30+i*81,this);
-						else if(!c.isEmpty() && c.getFirstPiece().getPlayer().getCouleur() == 2)
+						else if(!c.isEmpty() && c.getFirstPiece().getPlayer().getColor() == 2)
 							g.drawImage(stick,26+j*81,30+i*81,this);
 					}
 				}
