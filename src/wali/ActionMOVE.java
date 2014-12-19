@@ -1,5 +1,8 @@
 package wali;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 import framework.joueur.Player;
 import framework.action.Action;
 import framework.board.Board;
@@ -10,12 +13,26 @@ public class ActionMOVE extends Action {
 	
 	private int _oldX = 0, _oldY = 0;
 	
-	public ActionMOVE(String action, int type, int curX, int curY, int x, int y, Player player) {
-		super(action, type, x, y, player);
-		_oldX = curX;
-		_oldY = curY;
+	public ActionMOVE(String action, int type, Player player, Scanner scan) {
+		super(action, type, player, scan);
 	}
 
+	@Override
+	public void getParameters()
+	{
+		Scanner scan = getScanner();
+		
+		System.out.println("Entrez les coordonnées du pion à déplacer :");
+		
+		_oldX = scan.nextInt();
+		_oldY = scan.nextInt();
+		
+		System.out.println("Vers ?");
+		
+		setX(scan.nextInt());
+		setY(scan.nextInt());
+	}
+	
 	@Override
 	public boolean doAction(Board board) {
 		int x = getX(), y = getY();

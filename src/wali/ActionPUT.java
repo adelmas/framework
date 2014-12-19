@@ -1,5 +1,8 @@
 package wali;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 import framework.joueur.Player;
 import framework.action.Action;
 import framework.board.Board;
@@ -7,10 +10,21 @@ import framework.board.Piece;
 
 public class ActionPUT extends Action {
 
-	public ActionPUT(String action, int type, int x, int y, Player player) {
-		super(action, type, x, y, player);
+	public ActionPUT(String action, int type, Player player, Scanner scan) {
+		super(action, type, player, scan);
 	}
 
+	@Override
+	public void getParameters() {
+		Scanner scan = getScanner();
+		
+		System.out.println("Entrez les coordonnées du pion à poser :");
+		
+		setX(scan.nextInt());
+		setY(scan.nextInt());	
+	}
+
+	
 	@Override
 	public boolean doAction(Board board) {
 		if (board.isEmpty(getX(), getY())) {

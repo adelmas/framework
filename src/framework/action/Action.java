@@ -1,4 +1,7 @@
 package framework.action;
+import java.io.InputStream;
+import java.util.Scanner;
+
 import framework.board.Board;
 import framework.joueur.Player;
 
@@ -6,13 +9,18 @@ public abstract class Action {
 	private String _action = "";
 	private int _type = 0, _x = 0, _y = 0;
 	private Player _player;
+	private Scanner _scanner;
 	
-	public Action(String action, int type, int x, int y, Player player) {
+	public Action(String action, int type, Player player, Scanner scan) {
 		_action = action;
 		_type = type;
-		_x = x;
-		_y = y;
 		_player = player;
+		_scanner = scan;
+	}
+	
+	public Scanner getScanner()
+	{
+		return _scanner;
 	}
 	
 	public int getX()
@@ -66,6 +74,8 @@ public abstract class Action {
 	{
 		_action = "SKIP";
 	}	
+	
+	public abstract void getParameters();
 	
 	public String toString() {
 		return "Action() " + _action + "(" + _type + ") " + _x + ", " + _y + "\n";

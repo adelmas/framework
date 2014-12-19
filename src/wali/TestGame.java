@@ -67,12 +67,12 @@ public class TestGame extends Game {
 			if (phase == 0) {
 				System.out.println("Phase "+phase+" : pose");
 				actions = new LinkedList<Action>();
-				actions.add(new ActionPUT("PUT", 0, 0, 0, player));
+				actions.add(new ActionPUT("PUT", 0, player, player.getScanner()));
 			}
 			else {
 				System.out.println("Phase "+phase+" : deplacement");
 				actions = new LinkedList<Action>();
-				actions.add(new ActionMOVE("MOVE", 0, 0, 0, 0, 0, player));
+				actions.add(new ActionMOVE("MOVE", 0, player, player.getScanner()));
 			}
 			
 			System.out.println("----------\n"+player.getName());
@@ -96,7 +96,7 @@ public class TestGame extends Game {
 			if (phase == 1) {
 				if (plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player)) {
 					actions = new LinkedList<Action>();
-					actions.add(new ActionREMOVE("REMOVE", 0, 0, 0, player));
+					actions.add(new ActionREMOVE("REMOVE", 0, player, player.getScanner()));
 					Player targetPlayer;
 					do {
 						action = player.getAction(actions);

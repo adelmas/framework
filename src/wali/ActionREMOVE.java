@@ -1,7 +1,9 @@
 package wali;
 
-import framework.joueur.Player;
+import java.io.InputStream;
+import java.util.Scanner;
 
+import framework.joueur.Player;
 import framework.action.Action;
 import framework.board.Board;
 import framework.board.Case;
@@ -9,10 +11,21 @@ import framework.board.Piece;
 
 public class ActionREMOVE extends Action {
 	
-	public ActionREMOVE(String action, int type, int x, int y, Player player) {
-		super(action, type, x, y, player);
+	public ActionREMOVE(String action, int type, Player player, Scanner scan) {
+		super(action, type, player, scan);
 	}
 
+	@Override
+	public void getParameters()
+	{
+		Scanner scan = getScanner();
+		
+		System.out.println("Entrez les coordonnées du pion à supprimer :");
+		
+		setX(scan.nextInt());
+		setY(scan.nextInt());	
+	}
+	
 	@Override
 	public boolean doAction(Board board) {
 		if (!board.isEmpty(getX(), getY()) && board.getCase(getX(), getY()).getFirstPiece().getPlayer() != getPlayer()) {
