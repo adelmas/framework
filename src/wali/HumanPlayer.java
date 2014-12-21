@@ -3,8 +3,8 @@ package wali;
 import java.util.List;
 import java.util.Scanner;
 
-import framework.action.Action;
-import framework.joueur.Player;
+import framework.player.Action;
+import framework.player.Player;
 
 
 public class HumanPlayer extends Player {

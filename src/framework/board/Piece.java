@@ -1,6 +1,6 @@
 package framework.board;
 
-import framework.joueur.Player;
+import framework.player.Player;
 
 public class Piece {
 	

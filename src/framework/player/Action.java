@@ -1,9 +1,8 @@
-package framework.action;
+package framework.player;
 import java.io.InputStream;
 import java.util.Scanner;
 
 import framework.board.Board;
-import framework.joueur.Player;
 
 public abstract class Action {
 	private String _action = "";

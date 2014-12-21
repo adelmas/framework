@@ -3,8 +3,8 @@ package wali;
 import java.io.InputStream;
 import java.util.Scanner;
 
-import framework.joueur.Player;
-import framework.action.Action;
+import framework.player.Action;
+import framework.player.Player;
 import framework.board.Board;
 import framework.board.Piece;
 

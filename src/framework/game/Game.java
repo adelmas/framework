@@ -5,7 +5,7 @@ import framework.action.*;
 import java.util.List;
 import java.util.Observable;
 
-import framework.joueur.Player;
+import framework.player.Player;
 
 public abstract class Game extends Observable {
 	private Board board;

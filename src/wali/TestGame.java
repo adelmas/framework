@@ -8,7 +8,8 @@ import framework.board.*;
 import java.util.List;
 import java.util.LinkedList;
 
-import framework.joueur.Player;
+import framework.player.Action;
+import framework.player.Player;
 
 public class TestGame extends Game {
 	public void init() {

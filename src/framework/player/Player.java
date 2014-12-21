@@ -1,8 +1,7 @@
-package framework.joueur;
+package framework.player;
 import java.util.List;
 import java.util.Scanner;
 
-import framework.action.Action;
 
 public abstract class Player {
 	private String _name = "";
