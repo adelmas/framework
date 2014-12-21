@@ -2,7 +2,6 @@ package wali;
 
 import framework.game.*;
 import framework.graphics.Frame;
-import framework.action.*;
 import framework.board.*;
 
 import java.util.List;
@@ -142,3 +141,4 @@ public class TestGame extends Game {
 
 
 }
+
