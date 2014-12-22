@@ -1,4 +1,4 @@
-package wali;
+package wali.player;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -13,8 +13,8 @@ public class ActionMOVE extends Action {
 	
 	private int _oldX = 0, _oldY = 0;
 	
-	public ActionMOVE(String action, int type, Player player, Scanner scan) {
-		super(action, type, player, scan);
+	public ActionMOVE(String action, int type, Player player, Board board, Scanner scan) {
+		super(action, type, player, board, scan);
 	}
 
 	@Override
@@ -34,8 +34,10 @@ public class ActionMOVE extends Action {
 	}
 	
 	@Override
-	public boolean doAction(Board board) {
+	public boolean doAction() {
 		int x = getX(), y = getY();
+		Board board = getBoard();
+		
 		if (board.isEmpty(x, y) && !board.isEmpty(_oldX, _oldY) && (Math.abs(_oldX - x) == 1 || Math.abs(_oldY - y) == 1) && Math.abs(_oldX - x) != Math.abs(_oldY - y)) {
 			Case c = board.getCase(_oldX, _oldY);
 			if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {
@@ -45,5 +47,15 @@ public class ActionMOVE extends Action {
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void undo() {
+		System.out.println("MOVE.undo()");
+	}
+
+	@Override
+	public void redo() {
+			
 	}
 }

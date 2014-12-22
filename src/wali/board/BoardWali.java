@@ -1,4 +1,4 @@
-package wali;
+package wali.board;
 
 import framework.board.*;
 

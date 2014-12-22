@@ -1,22 +1,34 @@
 package framework.player;
-import java.io.InputStream;
 import java.util.Scanner;
+
+import javax.swing.undo.AbstractUndoableEdit;
 
 import framework.board.Board;
 
-public abstract class Action {
+public abstract class Action extends AbstractUndoableEdit {
 	private String _action = "";
 	private int _type = 0, _x = 0, _y = 0;
 	private Player _player;
 	private Scanner _scanner;
+	private Board _board;
 	
-	public Action(String action, int type, Player player, Scanner scan) {
+	public Action(String action, int type, Player player, Board board, Scanner scan) {
 		_action = action;
 		_type = type;
 		_player = player;
 		_scanner = scan;
+		_board = board;
 	}
 	
+	public abstract void undo();
+	public abstract void redo();
+	
+	public boolean canUndo() { return true; }
+	public boolean canRedo() { return true; }
+	
+	public Board getBoard() {
+		return _board;
+	}
 	public Scanner getScanner()
 	{
 		return _scanner;
@@ -62,7 +74,7 @@ public abstract class Action {
 		_player = player;
 	}
 	
-	public abstract boolean doAction(Board board);
+	public abstract boolean doAction();
 	
 	public void give_up()
 	{

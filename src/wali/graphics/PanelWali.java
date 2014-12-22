@@ -1,4 +1,4 @@
-package wali;
+package wali.graphics;
 
 import framework.game.Game;
 import framework.graphics.Panel;

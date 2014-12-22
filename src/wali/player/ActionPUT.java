@@ -1,4 +1,4 @@
-package wali;
+package wali.player;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -10,8 +10,8 @@ import framework.board.Piece;
 
 public class ActionPUT extends Action {
 
-	public ActionPUT(String action, int type, Player player, Scanner scan) {
-		super(action, type, player, scan);
+	public ActionPUT(String action, int type, Player player, Board board,Scanner scan) {
+		super(action, type, player, board, scan);
 	}
 
 	@Override
@@ -26,12 +26,25 @@ public class ActionPUT extends Action {
 
 	
 	@Override
-	public boolean doAction(Board board) {
+	public boolean doAction() {
+		Board board = getBoard();
+		
 		if (board.isEmpty(getX(), getY())) {
 			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void undo() {
+		System.out.println("PUT.undo()");
+	}
+
+	@Override
+	public void redo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

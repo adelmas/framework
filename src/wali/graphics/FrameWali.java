@@ -1,4 +1,4 @@
-package wali;
+package wali.graphics;
 
 import framework.game.Game;
 import framework.graphics.Frame;
@@ -16,7 +16,7 @@ public class FrameWali extends Frame {
 	private JButton undo;
 	private JButton redo;
 	
-	FrameWali(Game g) {
+	public FrameWali(Game g) {
 		super();
 		_container = new JPanel();
 		setTitle("Test Wali");

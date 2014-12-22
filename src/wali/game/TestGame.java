@@ -1,4 +1,4 @@
-package wali;
+package wali.game;
 
 import framework.game.*;
 import framework.graphics.Frame;
@@ -7,10 +7,23 @@ import framework.board.*;
 import java.util.List;
 import java.util.LinkedList;
 
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.UndoManager;
+
+import wali.board.BoardWali;
+import wali.graphics.FrameWali;
+import wali.player.ActionMOVE;
+import wali.player.ActionPUT;
+import wali.player.ActionREMOVE;
+import wali.player.HumanPlayer;
+
 import framework.player.Action;
 import framework.player.Player;
 
 public class TestGame extends Game {
+	private UndoManager _undoManager = new UndoManager();
+	private UndoableListener _undoListener = new UndoableListener(_undoManager);
+	
 	public void init() {
 		System.out.println("init()");
 	}
@@ -22,25 +35,26 @@ public class TestGame extends Game {
 	public boolean plusDeDeuxPions(BoardWali boardW, int x, int y, Player play){
 		int comptVert = 0;
 		int comptHori = 0;
+		
 		// décompte vertical
 		int i = 1;
-		while(isValid(x+i,y) && !boardW.getBoard()[x+i][y].isEmpty() && boardW.getBoard()[x+i][y].getFirstPiece().getPlayer() == play){
+		while(isValid(x+i,y) && !boardW.getCase(x+i, y).isEmpty() && boardW.getCase(x+i, y).getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x-i,y) && !boardW.getBoard()[x-i][y].isEmpty() && boardW.getBoard()[x-i][y].getFirstPiece().getPlayer() == play){
+		while(isValid(x-i,y) && !boardW.getCase(x-i, y).isEmpty() && boardW.getCase(x-i, y).getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		// décompte horizontal
 		i = 1;
-		while(isValid(x,y+i) && !boardW.getBoard()[x][y+i].isEmpty() && boardW.getBoard()[x][y+i].getFirstPiece().getPlayer() == play){
+		while(isValid(x,y+i) && !boardW.getCase(x, y+i).isEmpty() && boardW.getCase(x, y+i).getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x,y-i) && !boardW.getBoard()[x][y-i].isEmpty() && boardW.getBoard()[x][y-i].getFirstPiece().getPlayer() == play){
+		while(isValid(x,y-i) && !boardW.getCase(x, y-i).isEmpty() && boardW.getCase(x, y-i).getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
@@ -60,6 +74,7 @@ public class TestGame extends Game {
 		int phase = 0, nb = 0;
 		List<Action> actions;
 		boolean valide = false;
+		Board board = getBoard();
 		
 		while (1==1) {
 			Player player = getCurrentPlayer();
@@ -67,28 +82,31 @@ public class TestGame extends Game {
 			if (phase == 0) {
 				System.out.println("Phase "+phase+" : pose");
 				actions = new LinkedList<Action>();
-				actions.add(new ActionPUT("PUT", 0, player, player.getScanner()));
+				actions.add(new ActionPUT("PUT", 0, player, board, player.getScanner()));
 			}
 			else {
 				System.out.println("Phase "+phase+" : deplacement");
 				actions = new LinkedList<Action>();
-				actions.add(new ActionMOVE("MOVE", 0, player, player.getScanner()));
+				actions.add(new ActionMOVE("MOVE", 0, player, board, player.getScanner()));
 			}
 			
 			System.out.println("----------\n"+player.getName());
 			Action action = player.getAction(actions);
 			
+			/* Action registration */
+			_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
+			
 			/* ----- Controle des actions ----- */
 			
 			if (phase == 0)
-				valide = plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player);
+				valide = plusDeDeuxPions((BoardWali)board, action.getX(), action.getY(), player);
 			if (valide == true) {
  				System.out.println("Action invalide (Game)");
  				continue;
 			}
 			
 			/* Execution de l'action si elle est valide */
-			if (!action.doAction(getBoard())) {
+			if (!action.doAction()) {
 				System.out.println("Action invalide (Action)");
 				continue;
 			}
@@ -96,16 +114,20 @@ public class TestGame extends Game {
 			if (phase == 1) {
 				if (plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player)) {
 					actions = new LinkedList<Action>();
-					actions.add(new ActionREMOVE("REMOVE", 0, player, player.getScanner()));
+					actions.add(new ActionREMOVE("REMOVE", 0, player, board, player.getScanner()));
 					Player targetPlayer;
 					do {
 						action = player.getAction(actions);
-						targetPlayer = getBoard().getCase(action.getX(), action.getY()).getFirstPiece().getPlayer();
-					} while (!action.doAction(getBoard()));
+						targetPlayer = board.getCase(action.getX(), action.getY()).getFirstPiece().getPlayer();
+					} while (!action.doAction());
 					targetPlayer.decreaseScore(1);
+					_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
+					
 					System.out.println("Score " + targetPlayer.getName() + " : " + targetPlayer.getScore());
 				}
 			}
+			
+			_undoManager.undo();
 			
 			setChanged();
 			notifyObservers();
