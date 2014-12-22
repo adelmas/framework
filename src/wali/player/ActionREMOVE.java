@@ -7,6 +7,7 @@ import framework.player.Action;
 import framework.player.Player;
 import framework.board.Board;
 import framework.board.Case;
+import framework.board.Coordinates;
 import framework.board.Piece;
 
 public class ActionREMOVE extends Action {
@@ -22,16 +23,15 @@ public class ActionREMOVE extends Action {
 		
 		System.out.println("Entrez les coordonnées du pion à supprimer :");
 		
-		setX(scan.nextInt());
-		setY(scan.nextInt());	
+		setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
 	}
 	
 	@Override
 	public boolean doAction() {
 		Board board = getBoard();
 		
-		if (!board.isEmpty(getX(), getY()) && board.getCase(getX(), getY()).getFirstPiece().getPlayer() != getPlayer()) {
-			Case c = board.getCase(getX(), getY());
+		if (!board.isEmpty(new Coordinates(getCoordinate(0), getCoordinate(1))) && board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).getFirstPiece().getPlayer() != getPlayer()) {
+			Case c = board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1)));
 			c.removePiece(c.getFirstPiece());
 			return true;
 		}

@@ -1,11 +1,11 @@
 package wali.player;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 import framework.player.Action;
 import framework.player.Player;
 import framework.board.Board;
+import framework.board.Coordinates;
 import framework.board.Piece;
 
 public class ActionPUT extends Action {
@@ -20,8 +20,7 @@ public class ActionPUT extends Action {
 		
 		System.out.println("Entrez les coordonnées du pion à poser :");
 		
-		setX(scan.nextInt());
-		setY(scan.nextInt());	
+		setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));	
 	}
 
 	
@@ -29,8 +28,8 @@ public class ActionPUT extends Action {
 	public boolean doAction() {
 		Board board = getBoard();
 		
-		if (board.isEmpty(getX(), getY())) {
-			board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+		if (board.isEmpty(new Coordinates(getCoordinate(0), getCoordinate(1)))) {
+			board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
 			return true;
 		}
 		return false;

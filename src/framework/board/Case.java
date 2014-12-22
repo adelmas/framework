@@ -43,6 +43,10 @@ public class Case {
 	public void removePiece(Piece P){
 		_pieces.remove(P);
 	}
+	
+	public void removePieces() {
+		_pieces = new LinkedList<Piece>();
+	}
 
 	public void addPiece(Piece P){
 		_pieces.add(P);

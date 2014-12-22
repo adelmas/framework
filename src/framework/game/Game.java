@@ -7,41 +7,44 @@ import java.util.Observable;
 import framework.player.Player;
 
 public abstract class Game extends Observable {
-	private Board board;
-	List<Player> players;
-	private int currentPlayer = 0, nbPlayers = 0;
+	private Board _board;
+	List<Player> _players;
+	private int _currentPlayer = 0, _nbPlayers = 0;
 	
 	public abstract void init();
 	public abstract boolean isGameOver();
 	
 	public void setBoard(Board b) {
-		board = b;
+		_board = b;
 	}
 	
 	public Board getBoard() {
-		return board;
+		return _board;
 	}
 	
 	public void setPlayers(List<Player> players) {
-		this.players = players;
-		nbPlayers = players.size();
+		_players = players;
+		_nbPlayers = players.size();
 	}
 	public List<Player> getPlayers() {
-		return players;
+		return _players;
 	}
 	
 	public abstract void play();
 	
 	public Player getCurrentPlayer() {
-		return players.get(currentPlayer);
+		return _players.get(_currentPlayer);
 	}
 	public void nextPlayer() {
-		currentPlayer = (currentPlayer + 1) % nbPlayers;
+		_currentPlayer = (_currentPlayer + 1) % _nbPlayers;
+	}
+	public void prevPlayer() {
+		_currentPlayer = (_currentPlayer - 1 == 0) ? _nbPlayers-1 : _currentPlayer-1;
 	}
 	
 	public String toString() {
 		String str = "";
 		
-		return str + board.toString();
+		return str + _board.toString();
 	}
 }

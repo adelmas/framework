@@ -27,12 +27,8 @@ public class BoardWali extends Board{
 	
 	/* Method */
 	
-	public Case[][] getBoard() {
-		return _board;
-	}
-	
-	public Case getCase(int h, int w){
-		return _board[h][w];
+	public Case getCase(Coordinates coord){
+		return _board[coord.getCoordinate(0)][coord.getCoordinate(1)];
 	}	
 	
 	public int getHeight(){
@@ -43,10 +39,10 @@ public class BoardWali extends Board{
 		return _width;
 	}
 	
-	public void setCase(Case c, int x, int y) {
+	public void setCase(Case c, Coordinates coord) {
 		try 
 		{
-			_board[x][y] = c;
+			_board[coord.getCoordinate(0)][coord.getCoordinate(1)] = c;
 		} 
 		catch (ArrayIndexOutOfBoundsException e) 
 		{
@@ -54,9 +50,9 @@ public class BoardWali extends Board{
 		}
 	}
 	
-	public boolean isEmpty(int x, int y) {
+	public boolean isEmpty(Coordinates coord) {
 		try {
-			return (_board[x][y].isEmpty());
+			return (_board[coord.getCoordinate(0)][coord.getCoordinate(1)].isEmpty());
 		} catch (ArrayIndexOutOfBoundsException e) {
 			return false;
 		}
@@ -68,7 +64,7 @@ public class BoardWali extends Board{
 		
 		for (int i = 0 ; i < getHeight() ; i++ ){
 			for (int j = 0 ; j < getWidth() ; j++){
-				Case c = getCase(i, j);
+				Case c = getCase(new Coordinates(i, j));
 				if (c.isEmpty())
 					str += " ";
 				else if (c.getFirstPiece().getPlayer().getColor() == 1)
@@ -82,4 +78,5 @@ public class BoardWali extends Board{
 		}
 		return str;
 	}
+
 }

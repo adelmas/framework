@@ -38,23 +38,23 @@ public class TestGame extends Game {
 		
 		// décompte vertical
 		int i = 1;
-		while(isValid(x+i,y) && !boardW.getCase(x+i, y).isEmpty() && boardW.getCase(x+i, y).getFirstPiece().getPlayer() == play){
+		while(isValid(x+i,y) && !boardW.getCase(new Coordinates(x+i, y)).isEmpty() && boardW.getCase(new Coordinates(x+i, y)).getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x-i,y) && !boardW.getCase(x-i, y).isEmpty() && boardW.getCase(x-i, y).getFirstPiece().getPlayer() == play){
+		while(isValid(x-i,y) && !boardW.getCase(new Coordinates(x-i, y)).isEmpty() && boardW.getCase(new Coordinates(x-i, y)).getFirstPiece().getPlayer() == play){
 			comptVert++;
 			i++;
 		}
 		// décompte horizontal
 		i = 1;
-		while(isValid(x,y+i) && !boardW.getCase(x, y+i).isEmpty() && boardW.getCase(x, y+i).getFirstPiece().getPlayer() == play){
+		while(isValid(x,y+i) && !boardW.getCase(new Coordinates(x, y+i)).isEmpty() && boardW.getCase(new Coordinates(x, y+i)).getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
 		i = 1;
-		while(isValid(x,y-i) && !boardW.getCase(x, y-i).isEmpty() && boardW.getCase(x, y-i).getFirstPiece().getPlayer() == play){
+		while(isValid(x,y-i) && !boardW.getCase(new Coordinates(x, y-i)).isEmpty() && boardW.getCase(new Coordinates(x, y-i)).getFirstPiece().getPlayer() == play){
 			comptHori++;
 			i++;
 		}
@@ -98,8 +98,9 @@ public class TestGame extends Game {
 			
 			/* ----- Controle des actions ----- */
 			
-			if (phase == 0)
-				valide = plusDeDeuxPions((BoardWali)board, action.getX(), action.getY(), player);
+			if (phase == 0) {
+				valide = plusDeDeuxPions((BoardWali)board, action.getCoordinate(0), action.getCoordinate(1), player);
+			}
 			if (valide == true) {
  				System.out.println("Action invalide (Game)");
  				continue;
@@ -112,13 +113,13 @@ public class TestGame extends Game {
 			}
 			
 			if (phase == 1) {
-				if (plusDeDeuxPions((BoardWali)getBoard(), action.getX(), action.getY(), player)) {
+				if (plusDeDeuxPions((BoardWali)getBoard(), action.getCoordinate(0), action.getCoordinate(1), player)) {
 					actions = new LinkedList<Action>();
 					actions.add(new ActionREMOVE("REMOVE", 0, player, board, player.getScanner()));
 					Player targetPlayer;
 					do {
 						action = player.getAction(actions);
-						targetPlayer = board.getCase(action.getX(), action.getY()).getFirstPiece().getPlayer();
+						targetPlayer = board.getCase(new Coordinates(action.getCoordinate(0), action.getCoordinate(1))).getFirstPiece().getPlayer();
 					} while (!action.doAction());
 					targetPlayer.decreaseScore(1);
 					_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
@@ -132,13 +133,15 @@ public class TestGame extends Game {
 			setChanged();
 			notifyObservers();
 			System.out.println(toString());
-			if (isGameOver())
+			if (isGameOver()) {
 				break;
+			}
 			
 			nextPlayer();
 			nb++;
-			if (nb >= 6 && phase == 0)
+			if (nb >= 6 && phase == 0) {
 				phase = 1;
+			}
 		}
 		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");
 	}

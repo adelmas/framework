@@ -4,13 +4,15 @@ import java.util.Scanner;
 import javax.swing.undo.AbstractUndoableEdit;
 
 import framework.board.Board;
+import framework.board.Coordinates;
 
 public abstract class Action extends AbstractUndoableEdit {
 	private String _action = "";
-	private int _type = 0, _x = 0, _y = 0;
+	private int _type = 0;
 	private Player _player;
 	private Scanner _scanner;
 	private Board _board;
+	private Coordinates _coord;
 	
 	public Action(String action, int type, Player player, Board board, Scanner scan) {
 		_action = action;
@@ -18,6 +20,7 @@ public abstract class Action extends AbstractUndoableEdit {
 		_player = player;
 		_scanner = scan;
 		_board = board;
+		_coord = new Coordinates();
 	}
 	
 	public abstract void undo();
@@ -34,14 +37,9 @@ public abstract class Action extends AbstractUndoableEdit {
 		return _scanner;
 	}
 	
-	public int getX()
+	public Integer getCoordinate(int i)
 	{
-		return _x;
-	}
-	
-	public int getY()
-	{
-		return _y;
+		return _coord.getCoordinate(i);
 	}
 	
 	public String getAction()
@@ -53,15 +51,9 @@ public abstract class Action extends AbstractUndoableEdit {
 	{
 		return _player;
 	}
-	
-	public void setX(int x)
-	{
-		_x = x;
-	}
-	
-	public void setY(int y)
-	{
-		_y = y;
+
+	public void setCoordinates(Coordinates coord) {
+		_coord = coord;
 	}
 	
 	public void setAction(String action)
@@ -89,6 +81,6 @@ public abstract class Action extends AbstractUndoableEdit {
 	public abstract void getParameters();
 	
 	public String toString() {
-		return "Action() " + _action + "(" + _type + ") " + _x + ", " + _y + "\n";
+		return "Action() " + _action + "(" + _type + ") " + _coord.toString() + "\n";
 	}
 }

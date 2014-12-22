@@ -7,6 +7,7 @@ import framework.player.Action;
 import framework.player.Player;
 import framework.board.Board;
 import framework.board.Case;
+import framework.board.Coordinates;
 import framework.board.Piece;
 
 public class ActionMOVE extends Action {
@@ -29,19 +30,18 @@ public class ActionMOVE extends Action {
 		
 		System.out.println("Vers ?");
 		
-		setX(scan.nextInt());
-		setY(scan.nextInt());
+		setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
 	}
 	
 	@Override
 	public boolean doAction() {
-		int x = getX(), y = getY();
+		int x = getCoordinate(0), y = getCoordinate(1);
 		Board board = getBoard();
 		
-		if (board.isEmpty(x, y) && !board.isEmpty(_oldX, _oldY) && (Math.abs(_oldX - x) == 1 || Math.abs(_oldY - y) == 1) && Math.abs(_oldX - x) != Math.abs(_oldY - y)) {
-			Case c = board.getCase(_oldX, _oldY);
+		if (board.isEmpty(new Coordinates(x, y)) && !board.isEmpty(new Coordinates(_oldX, _oldY)) && (Math.abs(_oldX - x) == 1 || Math.abs(_oldY - y) == 1) && Math.abs(_oldX - x) != Math.abs(_oldY - y)) {
+			Case c = board.getCase(new Coordinates(_oldX, _oldY));
 			if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {
-				board.getCase(getX(), getY()).addPiece(new Piece(getPlayer(), 1));
+				board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
 				c.removePiece(c.getFirstPiece());
 				return true;
 			}
