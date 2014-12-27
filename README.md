@@ -1,3 +1,3 @@
 framework
 =========
-test
+A Java board game framework
