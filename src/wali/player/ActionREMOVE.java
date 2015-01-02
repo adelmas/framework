@@ -29,9 +29,11 @@ public class ActionREMOVE extends Action {
 	@Override
 	public boolean doAction() {
 		Board board = getBoard();
+		Coordinates coord = new Coordinates(getCoordinate(0), getCoordinate(1));
 		
-		if (!board.isEmpty(new Coordinates(getCoordinate(0), getCoordinate(1))) && board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).getFirstPiece().getPlayer() != getPlayer()) {
-			Case c = board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1)));
+		
+		if (!board.isEmpty(coord) && board.getCase(coord).getFirstPiece().getPlayer() != getPlayer()) {
+			Case c = board.getCase(coord);
 			c.removePiece(c.getFirstPiece());
 			return true;
 		}
