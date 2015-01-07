@@ -5,6 +5,7 @@ import java.util.Scanner;
 import framework.player.Action;
 import framework.player.Player;
 import framework.board.Board;
+import framework.board.Case;
 import framework.board.Coordinates;
 import framework.board.Piece;
 
@@ -39,12 +40,19 @@ public class ActionPUT extends Action {
 	@Override
 	public void undo() {
 		System.out.println("PUT.undo()");
+		Board board = getBoard();
+		Coordinates coord = new Coordinates(getCoordinate(0), getCoordinate(1));
+		Case c = board.getCase(coord);
+		c.removePiece(c.getFirstPiece());
 	}
 
 	@Override
 	public void redo() {
-		// TODO Auto-generated method stub
+		System.out.println("PUT.redo()");
+		Board board = getBoard();
 		
+		board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
+
 	}
 
 	public void setParameters(Coordinates co) {
