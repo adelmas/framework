@@ -1,5 +1,6 @@
 package framework.game;
 import framework.board.*;
+import framework.graphics.Panel;
 
 import java.util.List;
 import java.util.Observable;
@@ -47,4 +48,5 @@ public abstract class Game extends Observable {
 		
 		return str + _board.toString();
 	}
+
 }

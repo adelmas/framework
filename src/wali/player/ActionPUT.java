@@ -24,6 +24,7 @@ public class ActionPUT extends Action {
 	}
 
 	
+	
 	@Override
 	public boolean doAction() {
 		Board board = getBoard();
@@ -43,6 +44,10 @@ public class ActionPUT extends Action {
 	@Override
 	public void redo() {
 		// TODO Auto-generated method stub
+		
+	}
+
+	public void setParameters(Coordinates co) {
 		
 	}
 

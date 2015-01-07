@@ -5,6 +5,8 @@ import framework.graphics.Frame;
 
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
@@ -47,4 +49,9 @@ public class FrameWali extends Frame {
 		_container.add(buttons,BorderLayout.SOUTH);
 		this.setContentPane(_container);
 	}
+	
+	public PanelWali getPanel(){
+		return pWali;
+	}
+	
 }

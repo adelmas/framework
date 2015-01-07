@@ -9,9 +9,11 @@ import javax.swing.*;
 import framework.board.*;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.Observable;
-import java.util.Observer;
+//import java.util.Observer;
 
 public class PanelWali extends Panel {
 	Board _board = null;
@@ -48,29 +50,9 @@ public class PanelWali extends Panel {
 		}
 		
 	}
-
+	
 	public void update(Observable arg0, Object arg1) {
 		repaint();
-		System.out.println("update()");
 	}
-
-	/*@Override
-	public void mouseClicked(MouseEvent e) {
-		int x = e.getY(), y = e.getX(),x_mat,y_mat;
-		int taille = 83, decal = 26;
-		if((e.getX() < decal) || (e.getX() > decal + 6*taille) || (e.getY() < decal) || (e.getY() > decal+6*taille))
-			System.out.println("hors limites");
-		else{
-			x_mat = (x-decal)/taille;
-			y_mat = (y-decal)/taille;
-			_board.setCase(new Case("stone"),x_mat,y_mat);
-			System.out.println("x = "+x_mat+"\ty = "+y_mat);
-			
-		}
-		this.validate();
-		this.repaint();
-	}*/
-
-
 	
 }

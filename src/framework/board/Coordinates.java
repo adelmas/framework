@@ -27,8 +27,18 @@ public class Coordinates {
 		return -1;
 	}
 	
+	public Integer getSecondCoordinate() {
+		if (!_coord.isEmpty()) {
+			return _coord.get(1);
+		}
+		return -1;
+	}
+	
 	public void setCoordinate(int i, Integer val) {
 		_coord.set(i, val);
 	}
 	
+	public String toString() {
+		return _coord.toString();
+	}
 }

@@ -20,10 +20,10 @@ public class ActionREMOVE extends Action {
 	public void getParameters()
 	{
 		Scanner scan = getScanner();
-		
-		System.out.println("Entrez les coordonnées du pion à supprimer :");
-		
-		setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
+		if(scan != null){
+			System.out.println("Entrez les coordonnées du pion à supprimer :");
+			setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
+		}
 	}
 	
 	@Override

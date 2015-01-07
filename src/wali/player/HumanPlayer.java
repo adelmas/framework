@@ -21,8 +21,10 @@ public class HumanPlayer extends Player {
 			strActions += listActions.get(i) + " ";
 		
 		Action action = listActions.get(0);
-		action.getParameters();
-
+		if(action.getScanner() != null){
+			action.getParameters();
+		}
+		
 		return action;
 	}
 	

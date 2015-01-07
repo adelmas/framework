@@ -42,6 +42,10 @@ public abstract class Action extends AbstractUndoableEdit {
 		return _coord.getCoordinate(i);
 	}
 	
+	public Coordinates getCoordinate() {
+		return _coord;
+	}
+	
 	public String getAction()
 	{
 		return _action;

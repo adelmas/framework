@@ -18,19 +18,29 @@ public class ActionMOVE extends Action {
 		super(action, type, player, board, scan);
 	}
 
+	public void setOldX(int oldX){
+		_oldX = oldX;
+	}
+	
+	public void setOldY(int oldY){
+		_oldY = oldY;
+	}
+	
 	@Override
 	public void getParameters()
 	{
 		Scanner scan = getScanner();
 		
-		System.out.println("Entrez les coordonnées du pion à déplacer :");
-		
-		_oldX = scan.nextInt();
-		_oldY = scan.nextInt();
-		
-		System.out.println("Vers ?");
-		
-		setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
+		if(scan != null){
+			System.out.println("Entrez les coordonnées du pion à déplacer :");
+			
+			_oldX = scan.nextInt();
+			_oldY = scan.nextInt();
+			
+			System.out.println("Vers ?");
+			
+			setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
+		}
 	}
 	
 	@Override
