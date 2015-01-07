@@ -43,10 +43,18 @@ public class ActionREMOVE extends Action {
 	@Override
 	public void undo() {
 		System.out.println("REMOVE.undo()");
-	}
+		Board board = getBoard();
+		
+		board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
+		}
 
 	@Override
 	public void redo() {
+		System.out.println("REMOVE.redo()");
+		Board board = getBoard();
+		Coordinates coord = new Coordinates(getCoordinate(0), getCoordinate(1));
 		
+		Case c = board.getCase(coord);
+		c.removePiece(c.getFirstPiece());
 	}
 }

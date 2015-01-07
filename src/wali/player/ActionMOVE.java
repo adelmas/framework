@@ -52,10 +52,31 @@ public class ActionMOVE extends Action {
 	@Override
 	public void undo() {
 		System.out.println("MOVE.undo()");
+		int tempx=getCoordinate(0), tempy=getCoordinate(1);
+		int x = _oldX, y = _oldY;
+		_oldX=tempx;
+		_oldY=tempy;
+		
+		
+		super.setCoordinates(new Coordinates(x, y));
+		Board board = getBoard();
+		Case c = board.getCase(new Coordinates(_oldX, _oldY));
+		board.getCase(new Coordinates(x, y)).addPiece(new Piece(getPlayer(), 1));
+		c.removePiece(c.getFirstPiece());
 	}
 
 	@Override
 	public void redo() {
-			
+		System.out.println("MOVE.redo()");
+		int tempx=getCoordinate(0), tempy=getCoordinate(1);
+		int x = _oldX, y = _oldY;
+		_oldX=tempx;
+		_oldY=tempy;
+		
+		super.setCoordinates(new Coordinates(x, y));
+		Board board = getBoard();
+		Case c = board.getCase(new Coordinates(_oldX, _oldY));
+		board.getCase(new Coordinates(x, y)).addPiece(new Piece(getPlayer(), 1));
+		c.removePiece(c.getFirstPiece());
 	}
 }
