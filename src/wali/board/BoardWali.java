@@ -2,7 +2,7 @@ package wali.board;
 
 import framework.board.*;
 
-public class BoardWali extends Board{
+public class BoardWali extends Board {
 	
 	/* Attributes */
 	

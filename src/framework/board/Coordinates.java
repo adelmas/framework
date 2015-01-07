@@ -31,4 +31,8 @@ public class Coordinates {
 		_coord.set(i, val);
 	}
 	
+	public String toString() {
+		return _coord.toString();
+	}
+	
 }
