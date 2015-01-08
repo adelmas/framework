@@ -1,6 +1,5 @@
 package wali.player;
 
-import java.io.InputStream;
 import java.util.Scanner;
 
 import framework.player.Action;

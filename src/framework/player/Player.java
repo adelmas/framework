@@ -22,6 +22,9 @@ public abstract class Player {
 	
 	public abstract Action getAction(List<Action> listActions);
 	
+	public int getType() {
+		return _type;
+	}
 	public void setScanner(Scanner scan) {
 		_scanner = scan;
 	}

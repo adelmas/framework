@@ -4,16 +4,12 @@ import framework.game.Game;
 import framework.graphics.Panel;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 
 import framework.board.*;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.*;
 import java.util.Observable;
-//import java.util.Observer;
 
 public class PanelWali extends Panel {
 	Board _board = null;

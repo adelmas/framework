@@ -1,8 +1,6 @@
 package wali.game;
 
 import framework.game.*;
-import framework.graphics.Frame;
-import framework.graphics.Panel;
 import framework.board.*;
 
 import java.awt.event.MouseEvent;
@@ -122,13 +120,10 @@ public class TestGame extends Game implements MouseListener {
 			
 			Action action = player.getAction(actions);		
 			
-			/* Action registration */
-			_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
-			
 			/* ----- Controle des actions ----- */
 			if (_phase == 0) {
 				valide = plusDeDeuxPions((BoardWali)board, action.getCoordinate(0), action.getCoordinate(1), player);
-				}
+			}
 			if (valide == true) {
 				System.out.println("Action invalide (Game)");
 				return;
@@ -138,12 +133,13 @@ public class TestGame extends Game implements MouseListener {
 			if (!action.doAction()) {
 				System.out.println("Action invalide (Action) " + action.toString());
 				System.out.println(toString());
+				/* Action registration */
+				_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
 				return;
 			}
 		
 			if (_phase == 1) {
 				if (plusDeDeuxPions((BoardWali)getBoard(), action.getCoordinate(0), action.getCoordinate(1), player)) {
-					System.out.println("ON EST LAAAA");
 					_isCapture = true;
 				}
 			
@@ -173,8 +169,10 @@ public class TestGame extends Game implements MouseListener {
 				targetPlayer.decreaseScore(1);
 				setChanged();
 				notifyObservers();
-				if (isGameOver())
-					return; /* TODO : méthode gameOver() */
+				if (isGameOver()) {
+					gameOver();
+					return;
+				}
 				nextPlayer();
 				_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
 				System.out.println("Score " + targetPlayer.getName() + " : " + targetPlayer.getScore());
@@ -188,10 +186,10 @@ public class TestGame extends Game implements MouseListener {
 		while (true) {
 			coup(null);
 			if (isGameOver()) {
+				gameOver();
 				break;
 			}
 		}
-		System.out.println(getCurrentPlayer().getName() + " remporte la partie !");
 	}
 
 	public void mouseClicked(MouseEvent e) {
@@ -267,14 +265,21 @@ public class TestGame extends Game implements MouseListener {
 		List<Player> listPlayers = new LinkedList<Player>();
 		Game g = new TestGame();
 		
-		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", 12));
-		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", 12));
+		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", 3));
+		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", 3));
 
 		Board b = new BoardWali();
 		g.setBoard(b);
 		g.init();
 		g.setPlayers(listPlayers);
 		g.play();
+	}
+
+	@Override
+	public void gameOver() {
+		System.out.println("---------------\nGAME OVER !\n" + getCurrentPlayer().getName() + " remporte la partie !\nScores :");
+		for (Player p : getPlayers())
+			System.out.println(p.getName() + " : " + p.getScore());
 	}
 }
 

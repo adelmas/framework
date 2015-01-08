@@ -14,6 +14,7 @@ public abstract class Game extends Observable {
 	
 	public abstract void init();
 	public abstract boolean isGameOver();
+	public abstract void gameOver();
 	
 	public void setBoard(Board b) {
 		_board = b;
