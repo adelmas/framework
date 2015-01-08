@@ -33,6 +33,7 @@ public class ActionREMOVE extends Action {
 		
 		if (!board.isEmpty(coord) && board.getCase(coord).getFirstPiece().getPlayer() != getPlayer()) {
 			Case c = board.getCase(coord);
+			setPlayer(c.getFirstPiece().getPlayer());
 			c.removePiece(c.getFirstPiece());
 			return true;
 		}
@@ -45,7 +46,7 @@ public class ActionREMOVE extends Action {
 		Board board = getBoard();
 		
 		board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
-		}
+	}
 
 	@Override
 	public void redo() {

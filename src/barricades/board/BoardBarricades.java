@@ -38,4 +38,10 @@ public class BoardBarricades extends Board {
 		return false;
 	}
 
+	@Override
+	public void reset() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

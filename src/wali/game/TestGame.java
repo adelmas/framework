@@ -3,11 +3,14 @@ package wali.game;
 import framework.game.*;
 import framework.board.*;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.LinkedList;
 
+import javax.swing.JButton;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -21,18 +24,24 @@ import wali.player.HumanPlayer;
 import framework.player.Action;
 import framework.player.Player;
 
-public class TestGame extends Game implements MouseListener {
+public class TestGame extends Game implements MouseListener, ActionListener {
 	private UndoManager _undoManager = new UndoManager();
 	private UndoableListener _undoListener = new UndoableListener(_undoManager);
 	private int _phase = 0 ;
 	private int _nbCoups = 0;
-	private Coordinates _click_move;
+	private Coordinates _moveCoordinates;
 	private boolean _isCapture = false;
-	
+	private PanelWali pWali;
+	static int score = 3;
+		
 	public void init() {
 		FrameWali f = new FrameWali(this);
-		PanelWali pWali = f.getPanel();
+		pWali = f.getPanel();
 		pWali.addMouseListener(this);
+		LinkedList<JButton> list = f.getButtons();
+		for(JButton b : list){
+			b.addActionListener(this);
+		}
 		System.out.println("init()");
 	}
 
@@ -110,49 +119,58 @@ public class TestGame extends Game implements MouseListener {
 			}
 			else {
 				act_mov = new ActionMOVE("MOVE", 0, player, board, null);
-				act_mov.setOldX(_click_move.getFirstCoordinate());
-				act_mov.setOldY(_click_move.getSecondCoordinate());
+				act_mov.setOldX(_moveCoordinates.getFirstCoordinate());
+				act_mov.setOldY(_moveCoordinates.getSecondCoordinate());
 				act_mov.setCoordinates(co);
 			}
 			actions.add(act_mov);
 		}
 			
 			
-			Action action = player.getAction(actions);		
+		Action action = player.getAction(actions);		
 			
-			/* ----- Controle des actions ----- */
-			if (_phase == 0) {
-				valide = plusDeDeuxPions((BoardWali)board, action.getCoordinate(0), action.getCoordinate(1), player);
-			}
-			if (valide == true) {
-				System.out.println("Action invalide (Game)");
-				return;
-			}
-
-			/* Execution de l'action si elle est valide */
-			if (!action.doAction()) {
-				System.out.println("Action invalide (Action) " + action.toString());
-				System.out.println(toString());
-				/* Action registration */
-				_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
-				return;
-			}
-		
-			if (_phase == 1) {
-				if (plusDeDeuxPions((BoardWali)getBoard(), action.getCoordinate(0), action.getCoordinate(1), player)) {
-					_isCapture = true;
-				}
-			
+		/* ----- Controle des actions ----- */
+		if (_phase == 0) {
+			valide = plusDeDeuxPions((BoardWali)board, action.getCoordinate(0), action.getCoordinate(1), player);
 		}
+		if (valide == true) {
+			System.out.println("Action invalide (Game)");
+			return;
+		}
+		
+		/* Execution de l'action si elle est valide */
+		if (!action.doAction()) {
+			System.out.println("Action invalide (Action) " + action.toString());
+			System.out.println(toString());
+			return;
+		}
+		
+		/* Action registration */
+		_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
+		
+		if (_phase == 1) {
+			if (plusDeDeuxPions((BoardWali)getBoard(), action.getCoordinate(0), action.getCoordinate(1), player)) {
+				_isCapture = true;
+			}	
+		}
+		
 		setChanged();
 		notifyObservers();
 		System.out.println(toString());
 	
-		if (!_isCapture)
+		if (!_isCapture){
 			nextPlayer();
+		}
 		_nbCoups++;
-		if (_nbCoups >= 6 && _phase == 0) {
+		updatePhase();
+	}
+	
+	public void updatePhase() {
+		if (_nbCoups >= 6) {
 			_phase = 1;
+		}
+		else {
+			_phase = 0;
 		}
 	}
 	
@@ -192,31 +210,29 @@ public class TestGame extends Game implements MouseListener {
 		}
 	}
 
+	public Coordinates pixelToCoordinates(int x, int y){
+    	Coordinates co;
+    	int taille = 83, decal = 26;
+    	if(x < decal || x > decal + 6*taille || y < decal || y > decal + 6*taille) {
+    		System.out.println("Hors limites");
+    		return null;
+    	}
+    	else {
+    		int x_mat = (x-decal)/taille;
+    		int y_mat = (y-decal)/taille;
+    		co = new Coordinates(x_mat, y_mat);
+    	}
+    	return co;
+    }
+	
 	public void mouseClicked(MouseEvent e) {
-		int x = e.getY(), y = e.getX(),x_mat,y_mat;
-		int taille = 83, decal = 26;
+		int x = e.getY(), y = e.getX();
+		Coordinates click = pixelToCoordinates(x,y);
 		if(_phase  == 0){
-			if((e.getX() < decal) || (e.getX() > decal + 6*taille) || (e.getY() < decal) || (e.getY() > decal+6*taille)){
-				System.out.println("hors limites");
-			}
-			else{
-				x_mat = (x-decal)/taille;
-				y_mat = (y-decal)/taille;
-				Coordinates click = new Coordinates(x_mat,y_mat);
-				coup(click);
-			}	
-		}
+			coup(click);
+		}	
 		else if(_phase == 1 && _isCapture){
-			if((e.getX() < decal) || (e.getX() > decal + 6*taille) || (e.getY() < decal) || (e.getY() > decal+6*taille)){
-				System.out.println("hors limites");
-			}
-			else{
-				x_mat = (x-decal)/taille;
-				y_mat = (y-decal)/taille;
-				Coordinates click = new Coordinates(x_mat,y_mat);
-				System.out.println(click.toString());
-				capture(click);
-			}
+			capture(click);
 		}
 	}
 	
@@ -230,43 +246,25 @@ public class TestGame extends Game implements MouseListener {
 
 	public void mousePressed(MouseEvent e) {
 		if(_phase == 1) {
-			int x = e.getY(), y = e.getX(),x_mat,y_mat;
-			int taille = 83, decal = 26;
-			if((e.getX() < decal) || (e.getX() > decal + 6*taille) || (e.getY() < decal) || (e.getY() > decal+6*taille))
-				System.out.println("hors limites");
-				else{
-					x_mat = (x-decal)/taille;
-					y_mat = (y-decal)/taille;
-					_click_move = new Coordinates(x_mat,y_mat);
-					System.out.println("MOUSE PRESSED : "+_click_move.toString());
-				}
+			int x = e.getY(), y = e.getX();
+			_moveCoordinates = pixelToCoordinates(x,y);
 		}
 	}
 
 	public void mouseReleased(MouseEvent e) {
 		if(_phase == 1){
-			int x = e.getY(), y = e.getX(),x_mat,y_mat;
-			int taille = 83, decal = 26;
-			if((e.getX() < decal) || (e.getX() > decal + 6*taille) || (e.getY() < decal) || (e.getY() > decal+6*taille)){
-				System.out.println("hors limites");
-			}
-			else{
-				x_mat = (x-decal)/taille;
-				y_mat = (y-decal)/taille;
-				System.out.println("x = "+x_mat+"\ty = "+y_mat);
-				Coordinates click = new Coordinates(x_mat,y_mat);
-				System.out.println("MOUSE RELEASED : "+click.toString());
-				coup(click);
-			}	
-		}
+			int x = e.getY(), y = e.getX();
+			Coordinates click = pixelToCoordinates(x,y);
+			coup(click);
+		}	
 	}
 	
 	public static void main(String[] args) {
 		List<Player> listPlayers = new LinkedList<Player>();
 		Game g = new TestGame();
 		
-		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", 3));
-		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", 3));
+		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", score));
+		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", score));
 
 		Board b = new BoardWali();
 		g.setBoard(b);
@@ -280,6 +278,41 @@ public class TestGame extends Game implements MouseListener {
 		System.out.println("---------------\nGAME OVER !\n" + getCurrentPlayer().getName() + " remporte la partie !\nScores :");
 		for (Player p : getPlayers())
 			System.out.println(p.getName() + " : " + p.getScore());
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		JButton b = (JButton) e.getSource();
+		if((b.getText().equals("New game"))){
+			resetPlayers(score);
+			Board board = getBoard();
+			board.reset();
+			_undoManager.discardAllEdits();
+			_nbCoups = 0;
+			_phase = 0;
+			_isCapture = false;
+		}
+		else if((b.getText().equals("Undo"))){
+			if (_undoManager.canUndo()) {
+				_undoManager.undo();
+				prevPlayer();
+				if (_nbCoups != 0) {
+					_nbCoups--;
+				}
+				updatePhase();	
+			}
+		}
+		else{
+			if (_undoManager.canRedo()) {
+				_undoManager.redo();
+				nextPlayer();
+				_nbCoups++;
+				updatePhase();
+			}
+		}
+		
+		
+		setChanged();
+		notifyObservers();
 	}
 }
 

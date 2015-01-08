@@ -13,5 +13,7 @@ public abstract class Board {
 	public abstract void setCase(Case c, Coordinates coord);
 	
 	public abstract boolean isEmpty(Coordinates coord);	
+	
+	public abstract void reset();
 
 }

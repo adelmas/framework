@@ -58,6 +58,15 @@ public class BoardWali extends Board {
 		}
 	}
 	
+	public void reset(){
+		for(int i = 0 ; i < _height ; i++){
+			for(int j = 0 ; j < _width ; j++){
+				_board[i][j] = new Case("vide");
+			}
+		}
+
+	}
+	
 	public String toString(){
 
 		String str = "";

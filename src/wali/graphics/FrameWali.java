@@ -5,6 +5,8 @@ import framework.graphics.Frame;
 
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import java.awt.List;
+import java.util.LinkedList;
 
 import javax.swing.*;
 
@@ -50,6 +52,14 @@ public class FrameWali extends Frame {
 	
 	public PanelWali getPanel(){
 		return pWali;
+	}
+	
+	public LinkedList<JButton> getButtons(){
+		LinkedList<JButton> list = new LinkedList<JButton>();
+		list.add(new_game);
+		list.add(undo);
+		list.add(redo);
+		return list;
 	}
 	
 }

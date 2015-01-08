@@ -1,6 +1,5 @@
 package framework.game;
 import framework.board.*;
-import framework.graphics.Panel;
 
 import java.util.List;
 import java.util.Observable;
@@ -41,7 +40,19 @@ public abstract class Game extends Observable {
 		_currentPlayer = (_currentPlayer + 1) % _nbPlayers;
 	}
 	public void prevPlayer() {
-		_currentPlayer = (_currentPlayer - 1 == 0) ? _nbPlayers-1 : _currentPlayer-1;
+		if (_currentPlayer > 0) {
+			_currentPlayer -= 1;
+		}
+		else if (_currentPlayer == 0) {
+			_currentPlayer = _nbPlayers - 1;
+		}
+	}
+	
+	public void resetPlayers(int score) {
+		_currentPlayer = 0;
+		for (Player p : _players) {
+			p.setScore(score);
+		}
 	}
 	
 	public String toString() {
