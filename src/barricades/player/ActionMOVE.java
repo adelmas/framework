@@ -44,11 +44,11 @@ public class ActionMOVE extends Action {
 		
 		if (!board.isEmpty(new Coordinates(Num)) && !board.isEmpty(new Coordinates(_oldNum)) && (Math.abs(_oldNum - Num) <= 1)) {
 			Case c = board.getCase(new Coordinates(_oldNum));
-			if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {
+			/*if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {*/
 				board.getCase(new Coordinates(getCoordinate(0))).addPiece(new Piece(getPlayer(), 1));
 				c.removePiece(c.getFirstPiece());
 				return true;
-			}
+			/*}*/
 		}
 		return false;
 	}
