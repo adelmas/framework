@@ -18,8 +18,18 @@ public class Graph {
 			if (n.getNum() == num)
 				return n;
 		}
-		
 		return null;
+	}
+	
+	public boolean isEmpty(int num) {
+		if (getNode(num) == null) {
+			return true;
+		}
+		return false;
+	}
+	
+	public int getWidth() {
+		return _list.size();
 	}
 	
 	public String toString() {

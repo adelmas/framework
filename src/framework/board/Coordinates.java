@@ -20,6 +20,10 @@ public class Coordinates {
 		return -1;
 	}
 	
+	public int getSize() {
+		return _coord.size();
+	}
+	
 	public Integer getFirstCoordinate() {
 		if (!_coord.isEmpty()) {
 			return _coord.get(0);
