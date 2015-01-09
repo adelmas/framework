@@ -38,6 +38,18 @@ public class Coordinates {
 		return -1;
 	}
 	
+	public boolean equals(Coordinates coord) {
+		if (coord.getSize() != getSize()) {
+			return false;
+		}
+		for (int i=0; i<coord.getSize(); i++) {
+			if (coord.getCoordinate(i) != _coord.get(i)) {
+				return false;
+			}
+		}
+		return true;
+	} 
+	
 	public void setCoordinate(int i, Integer val) {
 		_coord.set(i, val);
 	}

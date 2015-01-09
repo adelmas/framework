@@ -34,6 +34,10 @@ public class Node {
 		return !_children.isEmpty();
 	}
 	
+	public Coordinates getCoordinates() {
+		return _coord;
+	}
+	
 	public boolean isNeighbor() {
 		return _neighbor;
 	}

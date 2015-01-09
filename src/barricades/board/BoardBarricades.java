@@ -11,6 +11,25 @@ public class BoardBarricades extends Board {
 	public BoardBarricades() {
 		_graph = new Graph();
 		_map = new HashMap<Integer, Coordinates>();
+
+		Case c = new Case();
+		c.addPiece(new Piece(null, 1));
+		_graph.addNode(new Node(c, new Coordinates(1, 1), true, 1));
+		
+		c = new Case();
+		c.addPiece(new Piece(null, 2));
+		_graph.addNode(new Node(c, new Coordinates(2, 2), true, 2));
+		
+		c = new Case();
+		c.addPiece(new Piece(null, 3));
+		Node n = new Node(c, new Coordinates(3, 3), true, 3);
+		_graph.addNode(n);
+		_graph.getNode(1).addChild(n);
+		
+		System.out.println(_graph.toString());
+		
+		addPoint(1, new Coordinates(200, 200));
+		System.out.println(getMap().toString());
 	}
 	
 	@Override
@@ -35,6 +54,24 @@ public class BoardBarricades extends Board {
 	}
 	public void addPoint(int num, Coordinates coord) {
 		_map.put(num, coord);
+	}
+	public Coordinates getCoordinates(int num) {
+		if (_graph.getNode(1) != null) {
+			return _graph.getNode(num).getCoordinates();
+		}
+		return null;
+	}
+	public int getNum(Coordinates coord) {
+		for (int num : _map.keySet()) {
+			if (_map.get(num).equals(coord)) {
+				return num;
+			}
+		}
+		return -1;
+	}
+	
+	public void addNode(int num, Coordinates coord) {
+		_graph.addNode(new Node(new Case(), coord, true, num));
 	}
 	
 	@Override
