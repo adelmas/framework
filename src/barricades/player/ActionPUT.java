@@ -30,7 +30,7 @@ public class ActionPUT extends Action {
 	public boolean doAction() {
 		Board board = getBoard();
 		
-		if (board.isEmpty(new Coordinates(getCoordinate(0)))) {
+		if (!board.isEmpty(new Coordinates(getCoordinate(0)))) {
 			board.getCase(new Coordinates(getCoordinate(0))).addPiece(new Piece(getPlayer(), 1));
 			return true;
 		}

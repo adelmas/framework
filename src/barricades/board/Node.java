@@ -23,8 +23,15 @@ public class Node {
 		_children.add(n);
 	}
 	
+	public LinkedList<Node> getChildren() {
+		if (hasChildren()) {
+			return _children;
+		}
+		return null;
+	}
+	
 	public boolean hasChildren() {
-		return _children.isEmpty();
+		return !_children.isEmpty();
 	}
 	
 	public boolean isNeighbor() {

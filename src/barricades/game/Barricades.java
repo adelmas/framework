@@ -38,7 +38,6 @@ public class Barricades extends Game {
 	@Override
 	public void init() {
 
-		
 	}
 
 	@Override
@@ -64,9 +63,16 @@ public class Barricades extends Game {
 		boolean valide = false;
 		ActionPUT act_put =  new ActionPUT("PUT", 0, player, b, player.getScanner());
 		act_put.getParameters();
-		act_put.doAction();
+		act_put.doAction();		
+		ActionMOVE act_move = new ActionMOVE("MOVE", 0, player, b, player.getScanner());
+		act_move.getParameters();
+		act_move.doAction();
+		ActionREMOVE act_remove = new ActionREMOVE("REMOVE", 0, player, b, player.getScanner());
+		act_remove.getParameters();
+		act_remove.doAction();
 		
-		if (b.getCase(new Coordinates(1)).isEmpty()) {
+		
+		if (b.getCase(new Coordinates(2)).isEmpty()) {
 			System.out.println("vide");
 		}
 		else {

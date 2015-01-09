@@ -33,7 +33,7 @@ public class ActionMOVE extends Action {
 			
 			System.out.println("Vers ?");
 			
-			setCoordinates(new Coordinates(scan.nextInt(), scan.nextInt()));
+			setCoordinates(new Coordinates(scan.nextInt()));
 		}
 	}
 	
@@ -42,10 +42,10 @@ public class ActionMOVE extends Action {
 		int Num = getCoordinate(0);
 		Board board = getBoard();
 		
-		if (board.isEmpty(new Coordinates(Num)) && !board.isEmpty(new Coordinates(_oldNum)) && (Math.abs(_oldNum - Num) <= 1)) {
+		if (!board.isEmpty(new Coordinates(Num)) && !board.isEmpty(new Coordinates(_oldNum)) && (Math.abs(_oldNum - Num) <= 1)) {
 			Case c = board.getCase(new Coordinates(_oldNum));
 			if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {
-				board.getCase(new Coordinates(getCoordinate(0), getCoordinate(1))).addPiece(new Piece(getPlayer(), 1));
+				board.getCase(new Coordinates(getCoordinate(0))).addPiece(new Piece(getPlayer(), 1));
 				c.removePiece(c.getFirstPiece());
 				return true;
 			}
