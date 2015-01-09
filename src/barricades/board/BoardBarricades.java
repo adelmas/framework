@@ -3,10 +3,24 @@ package barricades.board;
 import framework.board.*;
 
 public class BoardBarricades extends Board {
-	Graph _graph;
+	private Graph _graph;
 	
 	public BoardBarricades() {
 		_graph = new Graph();
+		Case c = new Case();
+		//c.addPiece(new Piece(null, 1));
+		_graph.addNode(new Node(c, new Coordinates(1, 1), true, 1));
+		
+		c = new Case();
+		c.addPiece(new Piece(null, 2));
+		_graph.addNode(new Node(c, new Coordinates(2, 2), true, 2));
+		
+		_graph.getNode(1).addChild(new Node(c, new Coordinates(3, 3), true, 3));
+		
+		
+		
+		System.out.println(_graph.toString());
+		
 	}
 	
 	@Override

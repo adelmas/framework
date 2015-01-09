@@ -8,8 +8,9 @@ import framework.player.Player;
 
 public abstract class Game extends Observable {
 	private Board _board;
-	List<Player> _players;
-	private int _currentPlayer = 0, _nbPlayers = 0;
+	static List<Player> _players;
+	private static int _currentPlayer = 0;
+	private int _nbPlayers = 0;
 	
 	public abstract void init();
 	public abstract boolean isGameOver();
@@ -33,7 +34,7 @@ public abstract class Game extends Observable {
 	
 	public abstract void play();
 	
-	public Player getCurrentPlayer() {
+	public static Player getCurrentPlayer() {
 		return _players.get(_currentPlayer);
 	}
 	public void nextPlayer() {

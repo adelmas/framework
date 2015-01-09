@@ -1,30 +1,44 @@
 package barricades.game;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import barricades.player.ActionMOVE;
+import barricades.player.ActionPUT;
 import framework.board.Board;
 import framework.board.Case;
 import framework.board.Coordinates;
 import framework.board.Piece;
 import framework.game.*;
+import framework.player.Action;
+import framework.player.Player;
 import barricades.board.*;
+
+import framework.board.*;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JButton;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.undo.UndoManager;
+
+import barricades.player.ActionREMOVE;
+import barricades.player.HumanPlayer;
+import barricades.board.Graph;
 
 public class Barricades extends Game {
 	
 	
 	
+	private static Player player;
+
 	@Override
 	public void init() {
-		Graph g = new Graph();
-		Case c = new Case();
-		c.addPiece(new Piece(null, 1));
-		g.addNode(new Node(c, new Coordinates(1, 1), true, 1));
+
 		
-		c = new Case();
-		c.addPiece(new Piece(null, 2));
-		g.addNode(new Node(c, new Coordinates(2, 2), true, 2));
-		
-		g.getNode(1).addChild(new Node(c, new Coordinates(3, 3), true, 3));
-		
-		System.out.println(g.toString());
 	}
 
 	@Override
@@ -46,7 +60,19 @@ public class Barricades extends Game {
 		
 		g.init();
 		
+		player = new HumanPlayer("player1", 1, 1, "X", 10);
+		boolean valide = false;
+		ActionPUT act_put =  new ActionPUT("PUT", 0, player, b, player.getScanner());
+		act_put.getParameters();
+		act_put.doAction();
 		
+		if (b.getCase(new Coordinates(1)).isEmpty()) {
+			System.out.println("vide");
+		}
+		else {
+			System.out.println("ok");
+		}
+
 	}
 
 	@Override
