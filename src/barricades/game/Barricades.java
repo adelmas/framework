@@ -10,7 +10,6 @@ import framework.game.*;
 import framework.player.Action;
 import framework.player.Player;
 import barricades.board.*;
-
 import framework.board.*;
 
 import java.awt.event.ActionEvent;
@@ -25,28 +24,34 @@ import javax.swing.undo.UndoManager;
 import barricades.player.ActionREMOVE;
 import barricades.player.HumanPlayer;
 import barricades.board.Graph;
+import barricades.graphics.FrameBarricades;
 
 public class Barricades extends Game {
-	
-	
+	private PanelBarricades pBarricades;
+		
 	
 	private static Player player;
 
 	@Override
 	public void init() {
-
+		FrameBarricades f = new FrameBarricades(this);
+		pBarricades = f.getPanel();
+		System.out.println("init");
+		LinkedList<JButton> list = f.getButtons();
+		for(JButton b : list){
+			System.out.println("ajout des boutons");
+			//b.addActionListener(this);
+		}
 	}
 
 	@Override
 	public boolean isGameOver() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void play() {
-		// TODO Auto-generated method stub
-		
+				
 	}
 	
 	public static void main(String[] args) {

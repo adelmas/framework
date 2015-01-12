@@ -12,7 +12,7 @@ import java.io.*;
 import java.util.Observable;
 
 public class PanelWali extends Panel {
-	Board _board = null;
+	private Board _board = null;
 	
 	PanelWali(){
 		super();
