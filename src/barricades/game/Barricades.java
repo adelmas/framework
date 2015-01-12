@@ -1,22 +1,27 @@
 package barricades.game;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import barricades.player.ActionMOVE;
 import barricades.player.ActionPUT;
 import framework.board.Board;
+import framework.board.Case;
+import framework.board.Coordinates;
 import framework.game.*;
 import framework.player.Action;
 import framework.player.Player;
 import barricades.board.*;
-
 import framework.board.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.event.UndoableEditEvent;
@@ -28,13 +33,13 @@ import barricades.board.Graph;
 
 public class Barricades extends Game {
 	
-	
-	
-	private static Player player;
-
 	@Override
 	public void init() {
-
+		BoardBarricades b = (BoardBarricades) getBoard();
+		
+		loadMapFromFile("resources/map.txt");
+		
+		System.out.println(b);
 	}
 
 	@Override
@@ -49,9 +54,51 @@ public class Barricades extends Game {
 		
 	}
 	
+	public void loadMapFromFile(String file) {
+		BoardBarricades b = (BoardBarricades) getBoard();
+		
+		try {
+			BufferedReader buf = new BufferedReader(new FileReader(file));
+			try {
+				String line = "";
+				int phase = 0;
+				while ((line = buf.readLine()) != null) {
+					line = line.trim();
+					if (line.equals("")) {
+						phase = 1;
+						continue;
+					}
+					String[] split = line.split("\t");
+					if (phase == 0) {
+						b.addNode(Integer.parseInt(split[0]), new Coordinates(Integer.parseInt(split[1]), Integer.parseInt(split[2])));
+					}
+					else {
+						int numFather = 0, numChild = 0;
+						for (int i=0; i<split.length; i++) {
+							if (i == 0) {
+								numFather = Integer.parseInt(split[i]);
+							}
+							else {
+								numChild = Integer.parseInt(split[i]);
+								b.addChild(numFather, numChild);
+							}
+						}
+					}
+				}
+			} finally {
+				buf.close();
+			}
+		} catch (IOException ioe) {
+			System.out.println("Error loadMapFromFile : File not found");
+		}
+	}
+	
 	public static void main(String[] args) {
 		Game g = new Barricades();
-		Board b = new BoardBarricades();
+		BoardBarricades b = new BoardBarricades();
+		
+		Player player;
+		
 		g.setBoard(b);
 		
 		g.init();
