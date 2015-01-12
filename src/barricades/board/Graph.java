@@ -3,7 +3,11 @@ package barricades.board;
 import java.util.LinkedList;
 
 public class Graph {
-	private LinkedList<Node> _list = new LinkedList<Node>();
+	private LinkedList<Node> _list;
+	
+	public Graph() {
+		_list = new LinkedList<Node>();
+	}
 	
 	public LinkedList<Node> getList() {
 		return _list;
