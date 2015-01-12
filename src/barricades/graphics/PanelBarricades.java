@@ -1,4 +1,4 @@
-package barricades.game;
+package barricades.graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -28,9 +28,6 @@ public class PanelBarricades extends Panel{
 		g.addObserver(this);
 		_board = (BoardBarricades) g.getBoard();
 	}
-	
-	
-	
 
 	public void paintComponent(Graphics g) {
 		try {
@@ -49,7 +46,8 @@ public class PanelBarricades extends Panel{
 			    g.fillRect(200, 30, width, height);*/
 			    
 			    for (Node n : _board.getGraph().getList()) {
-			    	int id = n.getCase().getFirstPiece().getPlayer().getColor();
+			    	//int id = n.getCase().getFirstPiece().getPlayer().getColor();
+			    	int id = 2;
 			    	Coordinates coord = n.getCoordinates();
 		    		x = coord.getFirstCoordinate();
 		    		y = coord.getSecondCoordinate();
@@ -59,7 +57,7 @@ public class PanelBarricades extends Panel{
 			    		g.fillRect(x,y,width,height);
 			    	}
 			    	else {
-			      		g.setColor(plr1);
+			      		g.setColor(plr2);
 			    		g.fillRect(x,y,width,height);
 			    	}
 			    }

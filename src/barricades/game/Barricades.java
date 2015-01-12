@@ -31,6 +31,7 @@ import barricades.player.ActionREMOVE;
 import barricades.player.HumanPlayer;
 import barricades.board.Graph;
 import barricades.graphics.FrameBarricades;
+import barricades.graphics.PanelBarricades;
 
 public class Barricades extends Game {
 
@@ -51,6 +52,9 @@ public class Barricades extends Game {
 		pBarricades = f.getPanel();
 		System.out.println("init");
 		LinkedList<JButton> list = f.getButtons();
+		
+		setChanged();
+		notifyObservers();
 	}
 
 

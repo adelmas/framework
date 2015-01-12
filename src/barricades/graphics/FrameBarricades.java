@@ -9,7 +9,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import wali.graphics.PanelWali;
-import barricades.game.PanelBarricades;
 import framework.game.Game;
 import framework.graphics.*;
 
@@ -28,6 +27,7 @@ public class FrameBarricades extends Frame{
 		setSize(255,305);
 		setLocationRelativeTo(null);
 		_panelBarricades = new PanelBarricades();
+		_panelBarricades.init(g);
 		initFrame();
 		setVisible(true);		
 	}
