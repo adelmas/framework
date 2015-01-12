@@ -297,6 +297,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 			_nbCoups = 0;
 			_phase = 0;
 			_isCapture = false;
+			_isGameOver = false;
 		}
 		else if((b.getText().equals("Undo"))){
 			if (_undoManager.canUndo()) {
