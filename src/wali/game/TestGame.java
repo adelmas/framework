@@ -278,6 +278,8 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 		System.out.println("---------------\nGAME OVER !\n" + getCurrentPlayer().getName() + " remporte la partie !\nScores :");
 		for (Player p : getPlayers())
 			System.out.println(p.getName() + " : " + p.getScore());
+		setChanged();
+		notifyObservers();
 	}
 
 	public void actionPerformed(ActionEvent e) {
