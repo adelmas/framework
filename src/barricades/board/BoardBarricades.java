@@ -12,24 +12,10 @@ public class BoardBarricades extends Board {
 	public BoardBarricades() {
 		_graph = new Graph();
 		_map = new HashMap<Integer, Coordinates>();
-		Case c = new Case();
-		c.addPiece(new Piece(null, 1));
-		_graph.addNode(new Node(c, new Coordinates(1, 1), true, 1));
-		
-		c = new Case();
-		c.addPiece(new Piece(null, 2));
-		_graph.addNode(new Node(c, new Coordinates(2, 2), true, 2));
-		
-		c = new Case();
-		c.addPiece(new Piece(null, 3));
-		Node n = new Node(c, new Coordinates(3, 3), true, 3);
-		_graph.addNode(n);
-		_graph.getNode(1).addChild(n);
-		
-		System.out.println(_graph.toString());
-		
-		addPoint(1, new Coordinates(200, 200));
-		System.out.println(getMap().toString());
+	}
+	
+	public Graph getGraph() {
+		return _graph;
 	}
 	
 	@Override
@@ -73,7 +59,16 @@ public class BoardBarricades extends Board {
 	public void addNode(int num, Coordinates coord) {
 		_graph.addNode(new Node(new Case(), coord, true, num));
 	}
+	public void addChild(int numFather, int num) {
+		Node n = _graph.getNode(numFather);
+		if (n != null) {
+			n.addChild(_graph.getNode(num));
+		}
+	}
 	
+	public void setGraph(Graph g) {
+		_graph = g;
+	}
 	@Override
 	public int getHeight() {
 		return -1;
@@ -98,6 +93,10 @@ public class BoardBarricades extends Board {
 	public void reset() {
 		// TODO Auto-generated method stub
 		// Recharger la map
+	}
+	
+	public String toString() {
+		return _graph.toString();
 	}
 
 }

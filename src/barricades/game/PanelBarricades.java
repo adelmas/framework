@@ -10,13 +10,15 @@ import java.util.Observable;
 
 import javax.imageio.ImageIO;
 
+import barricades.board.BoardBarricades;
 import barricades.board.Node;
 import framework.board.Board;
+import framework.board.Coordinates;
 import framework.game.Game;
 import framework.graphics.*;
 
 public class PanelBarricades extends Panel{
-	private Board _board = null;
+	private BoardBarricades _board = null;
 	
 	public PanelBarricades() {
 		super();
@@ -24,7 +26,7 @@ public class PanelBarricades extends Panel{
 	
 	void init(Game g){
 		g.addObserver(this);
-		_board = g.getBoard();
+		_board = (BoardBarricades) g.getBoard();
 	}
 	
 	
@@ -34,23 +36,34 @@ public class PanelBarricades extends Panel{
 		try {
 			Color plr1 = Color.cyan;
 			Color plr2 = Color.red;
+			int x,y,width = 5, height = 5;
 			
 			Image map = ImageIO.read(new File("resources/moissy2.jpg"));
 			g.drawImage(map,0,0,this);
 			
-			///if(_board != null){
-				int width = 5, height = 5;
-				g.setColor(plr1);	
+			if(_board != null){
+				
+				/*g.setColor(plr1);	
 			    g.fillRect(50,105,width,height);
 			    g.setColor(plr2);
-			    g.fillRect(200, 30, width, height);
+			    g.fillRect(200, 30, width, height);*/
 			    
-			    for (Node n : _board.getGraph()) {
+			    for (Node n : _board.getGraph().getList()) {
 			    	int id = n.getCase().getFirstPiece().getPlayer().getColor();
-			    	
-			    	
+			    	Coordinates coord = n.getCoordinates();
+		    		x = coord.getFirstCoordinate();
+		    		y = coord.getSecondCoordinate();
+		    		
+			    	if(id == 1){
+			    		g.setColor(plr1);
+			    		g.fillRect(x,y,width,height);
+			    	}
+			    	else {
+			      		g.setColor(plr1);
+			    		g.fillRect(x,y,width,height);
+			    	}
 			    }
-			//}
+			}
 		}
 		catch(IOException e){ System.out.println("Erreur chargement image"); }
 	}
