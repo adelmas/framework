@@ -23,7 +23,7 @@ public class Node {
 		_children.add(n);
 	}
 	
-	public LinkedList<Node> getChildren() {
+	public LinkedList<Node> getChildrenList() {
 		if (hasChildren()) {
 			return _children;
 		}
