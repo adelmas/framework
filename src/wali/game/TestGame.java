@@ -282,22 +282,6 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 
 	@Override
 	public void gameOver() {
-		/*String infoGame ="";
-		Player winner = null;
-		int maxScore = -1;
-		System.out.println("---------------\nGAME OVER !\n" + getCurrentPlayer().getName() + " remporte la partie !\nScores :");
-		
-		for (Player p : getPlayers()){
-			infoGame += p.getName() + " : " + p.getScore()+"\n";
-			if(p.getScore()> maxScore){
-				maxScore = p.getScore();
-				winner = p;
-			}
-			System.out.println(infoGame);
-		}
-		infoGame += winner.getName()+" remporte la partie !!";
-		JOptionPane jop1 = new JOptionPane();
-		jop1.showMessageDialog(null,  infoGame,"GAME ENDED", JOptionPane.INFORMATION_MESSAGE);*/
 		_isGameOver = true;
 		setChanged();
 		notifyObservers();
@@ -313,6 +297,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 			_nbCoups = 0;
 			_phase = 0;
 			_isCapture = false;
+			_isGameOver = false;
 		}
 		else if((b.getText().equals("Undo"))){
 			if (_undoManager.canUndo()) {
