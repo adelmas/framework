@@ -63,7 +63,7 @@ public class Node {
 	public String toString() {
 		String str = "";
 		
-		str = "Node " + _num + " " +  _coord.toString() + "\n";
+		str = "Node " + _num + " " +  _coord.toString() + "[" + _neighbor + "]\n";
 		for (Node n : _children)
 			str += "\t" + n.getNum() + "\n";
 		return str;

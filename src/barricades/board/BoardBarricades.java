@@ -18,6 +18,14 @@ public class BoardBarricades extends Board {
 		return _graph;
 	}
 	
+	public void setNeighbor(int num, boolean bNeighbor) {
+		Node n = _graph.getNode(num);
+		
+		if (n != null) {
+			n.setNeighbor(bNeighbor);
+		}
+	}
+	
 	@Override
 	public Case getCase(Coordinates coord) {
 		if (coord.getSize() == 1) {
@@ -57,7 +65,7 @@ public class BoardBarricades extends Board {
 	}
 	
 	public void addNode(int num, Coordinates coord) {
-		_graph.addNode(new Node(new Case(), coord, true, num));
+		_graph.addNode(new Node(new Case(), coord, false, num));
 	}
 	public void addChild(int numFather, int num) {
 		Node n = _graph.getNode(numFather);

@@ -45,6 +45,10 @@ public class Barricades extends Game {
 		BoardBarricades b = (BoardBarricades) getBoard();
 		
 		loadMapFromFile("resources/map.txt");
+		b.setNeighbor(1, true);
+		b.setNeighbor(2, true);
+		b.setNeighbor(3, true);
+		b.setNeighbor(4, true);
 		
 		System.out.println(b);
 	
