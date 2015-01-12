@@ -2,9 +2,12 @@ package wali.graphics;
 
 import framework.game.Game;
 import framework.graphics.Panel;
+import framework.player.Player;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 
+import wali.game.*;
 import framework.board.*;
 
 import java.awt.*;
@@ -13,14 +16,16 @@ import java.util.Observable;
 
 public class PanelWali extends Panel {
 	private Board _board = null;
+	private boolean _isGameOver;
 	
-	PanelWali(){
+	public PanelWali() {
 		super();
 	}
 	
 	void init(Game g) {
 		g.addObserver(this);
 		_board = g.getBoard();
+		_isGameOver = false;
 	}
 	
 	public void paintComponent(Graphics g){	
@@ -47,8 +52,28 @@ public class PanelWali extends Panel {
 		
 	}
 	
+	public void drawGameOverBox(TestGame g){
+		String infoGame = "";
+		Player winner = null;
+		int maxScore = -1;
+		
+		for (Player p : g.getPlayers()){
+			infoGame += p.getName() + " : " + p.getScore()+"\n";
+			if(p.getScore()> maxScore){
+				maxScore = p.getScore();
+				winner = p;
+			}
+			System.out.println(infoGame);
+		}
+		infoGame += winner.getName()+" remporte la partie !!";
+		JOptionPane jop1 = new JOptionPane();
+		jop1.showMessageDialog(null,  infoGame,"GAME ENDED", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
 	public void update(Observable arg0, Object arg1) {
 		repaint();
+		if(((TestGame)arg0).getGameOver())
+			drawGameOverBox((TestGame) arg0);
 	}
 	
 }

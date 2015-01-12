@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -31,6 +32,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 	private int _nbCoups = 0;
 	private Coordinates _moveCoordinates;
 	private boolean _isCapture = false;
+	private boolean _isGameOver = false;
 	private PanelWali pWali;
 	static int score = 3;
 		
@@ -81,10 +83,15 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 	
 	public boolean isGameOver() {
 		for (Player player : getPlayers()) {
-			if (player.getScore() == 0)
+			if (player.getScore() == 0){
 				return true;
+			}
 		}
 		return false;
+	}
+	
+	public boolean getGameOver() {
+		return _isGameOver;
 	}
 	
 	public void coup(Coordinates co){
@@ -275,9 +282,25 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 
 	@Override
 	public void gameOver() {
+		/*String infoGame ="";
+		Player winner = null;
+		int maxScore = -1;
 		System.out.println("---------------\nGAME OVER !\n" + getCurrentPlayer().getName() + " remporte la partie !\nScores :");
-		for (Player p : getPlayers())
-			System.out.println(p.getName() + " : " + p.getScore());
+		
+		for (Player p : getPlayers()){
+			infoGame += p.getName() + " : " + p.getScore()+"\n";
+			if(p.getScore()> maxScore){
+				maxScore = p.getScore();
+				winner = p;
+			}
+			System.out.println(infoGame);
+		}
+		infoGame += winner.getName()+" remporte la partie !!";
+		JOptionPane jop1 = new JOptionPane();
+		jop1.showMessageDialog(null,  infoGame,"GAME ENDED", JOptionPane.INFORMATION_MESSAGE);*/
+		_isGameOver = true;
+		setChanged();
+		notifyObservers();
 	}
 
 	public void actionPerformed(ActionEvent e) {
