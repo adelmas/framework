@@ -16,7 +16,6 @@ import java.util.Observable;
 
 public class PanelWali extends Panel {
 	private Board _board = null;
-	private boolean _isGameOver;
 	
 	public PanelWali() {
 		super();
@@ -25,7 +24,6 @@ public class PanelWali extends Panel {
 	void init(Game g) {
 		g.addObserver(this);
 		_board = g.getBoard();
-		_isGameOver = false;
 	}
 	
 	public void paintComponent(Graphics g){	

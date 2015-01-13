@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.LinkedList;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.undo.UndoManager;
 
@@ -301,6 +300,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 		}
 		else if((b.getText().equals("Undo"))){
 			if (_undoManager.canUndo()) {
+				_isGameOver = false;
 				_undoManager.undo();
 				prevPlayer();
 				if (_nbCoups != 0) {
@@ -309,8 +309,14 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 				updatePhase();	
 			}
 		}
+		else if((b.getText().equals("Give up"))){
+			getCurrentPlayer().setScore(0);
+			nextPlayer();
+			_isGameOver = true;
+		}
 		else{
 			if (_undoManager.canRedo()) {
+				_isGameOver = false;
 				_undoManager.redo();
 				nextPlayer();
 				_nbCoups++;

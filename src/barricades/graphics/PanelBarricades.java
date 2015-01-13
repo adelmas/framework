@@ -48,6 +48,9 @@ public class PanelBarricades extends Panel{
 			    for (Node n : _board.getGraph().getList()) {
 			    	//int id = n.getCase().getFirstPiece().getPlayer().getColor();
 			    	int id = 2;
+			    	if (!n.getCase().isEmpty()) {
+			    		id = n.getCase().getFirstPiece().getPlayer().getColor();
+			    	}
 			    	Coordinates coord = n.getCoordinates();
 		    		x = coord.getFirstCoordinate();
 		    		y = coord.getSecondCoordinate();
