@@ -293,6 +293,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 			setGameOver(false);
 		}
 		else if((b.getText().equals("Undo"))){
+			setGameOver(false);
 			if (undoManager.canUndo()) {
 				undoManager.undo();
 				prevPlayer();
@@ -302,7 +303,13 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 				updatePhase();	
 			}
 		}
+		else if((b.getText().equals("Give up"))){
+			getCurrentPlayer().setScore(0);
+			nextPlayer();
+			setGameOver(true);
+		}
 		else{
+			setGameOver(false);
 			if (undoManager.canRedo()) {
 				undoManager.redo();
 				nextPlayer();
@@ -310,8 +317,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 				updatePhase();
 			}
 		}
-		
-		
+			
 		setChanged();
 		notifyObservers();
 	}
