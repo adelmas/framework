@@ -16,19 +16,17 @@ import java.util.Observable;
 
 public class PanelWali extends Panel {
 	private Board _board = null;
-	private boolean _isGameOver;
 	
 	public PanelWali() {
 		super();
 	}
 	
-	void init(Game g) {
+	public void init(Game g) {
 		g.addObserver(this);
 		_board = g.getBoard();
-		_isGameOver = false;
 	}
 	
-	public void paintComponent(Graphics g){	
+	public void paintComponent(Graphics g) {	
 		try {
 			Image grid = ImageIO.read(new File("resources/grid.jpg"));
 			Image stone = ImageIO.read(new File("resources/stone.png"));
@@ -52,14 +50,14 @@ public class PanelWali extends Panel {
 		
 	}
 	
-	public void drawGameOverBox(TestGame g){
+	public void drawGameOverBox(Game g) {
 		String infoGame = "";
 		Player winner = null;
 		int maxScore = -1;
 		
 		for (Player p : g.getPlayers()){
 			infoGame += p.getName() + " : " + p.getScore()+"\n";
-			if(p.getScore()> maxScore){
+			if(p.getScore() > maxScore){
 				maxScore = p.getScore();
 				winner = p;
 			}
