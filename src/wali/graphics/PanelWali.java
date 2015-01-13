@@ -21,12 +21,12 @@ public class PanelWali extends Panel {
 		super();
 	}
 	
-	void init(Game g) {
+	public void init(Game g) {
 		g.addObserver(this);
 		_board = g.getBoard();
 	}
 	
-	public void paintComponent(Graphics g){	
+	public void paintComponent(Graphics g) {	
 		try {
 			Image grid = ImageIO.read(new File("resources/grid.jpg"));
 			Image stone = ImageIO.read(new File("resources/stone.png"));
@@ -50,7 +50,7 @@ public class PanelWali extends Panel {
 		
 	}
 	
-	public void drawGameOverBox(TestGame g){
+	public void drawGameOverBox(Game g) {
 		String infoGame = "";
 		Player winner = null;
 		int maxScore = -1;

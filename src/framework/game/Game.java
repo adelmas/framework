@@ -4,6 +4,8 @@ import framework.board.*;
 import java.util.List;
 import java.util.Observable;
 
+import javax.swing.undo.UndoManager;
+
 import framework.player.Player;
 
 public abstract class Game extends Observable {
@@ -11,13 +13,36 @@ public abstract class Game extends Observable {
 	static List<Player> _players;
 	private static int _currentPlayer = 0;
 	private int _nbPlayers = 0;
+	private UndoManager _undoManager = new UndoManager();
+	private UndoableListener _undoListener = new UndoableListener(_undoManager);
+	private int _startScore = 0;
+	private boolean _isGameOver = false;
 	
 	public abstract void init();
 	public abstract boolean isGameOver();
 	public abstract void gameOver();
 	
+	public void setStartScore(int score) {
+		_startScore = score;
+	}
+	public int getStartScore() {
+		return _startScore;
+	}
+	public void setGameOver(boolean b) {
+		_isGameOver = b;
+	}
+	public boolean getGameOver() {
+		return _isGameOver;
+	}
 	public void setBoard(Board b) {
 		_board = b;
+	}
+	
+	public UndoManager getUndoManager() {
+		return _undoManager;
+	}
+	public UndoableListener getUndoableListener() {
+		return _undoListener;
 	}
 	
 	public Board getBoard() {

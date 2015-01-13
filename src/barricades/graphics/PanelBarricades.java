@@ -3,7 +3,6 @@ package barricades.graphics;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
@@ -12,7 +11,6 @@ import javax.imageio.ImageIO;
 
 import barricades.board.BoardBarricades;
 import barricades.board.Node;
-import framework.board.Board;
 import framework.board.Coordinates;
 import framework.game.Game;
 import framework.graphics.*;
@@ -24,7 +22,7 @@ public class PanelBarricades extends Panel{
 		super();
 	}
 	
-	void init(Game g){
+	public void init(Game g){
 		g.addObserver(this);
 		_board = (BoardBarricades) g.getBoard();
 	}
@@ -71,5 +69,11 @@ public class PanelBarricades extends Panel{
 
 	public void update(Observable arg0, Object arg1) {
 		repaint();
+	}
+
+	@Override
+	public void drawGameOverBox(Game g) {
+		// TODO Auto-generated method stub
+		
 	}
 }
