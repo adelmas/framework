@@ -5,7 +5,6 @@ import framework.graphics.Frame;
 
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
-import java.awt.List;
 import java.util.LinkedList;
 
 import javax.swing.*;
