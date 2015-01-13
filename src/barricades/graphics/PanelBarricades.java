@@ -31,7 +31,7 @@ public class PanelBarricades extends Panel{
 
 	public void paintComponent(Graphics g) {
 		try {
-			Color plr1 = Color.cyan;
+			Color plr1 = Color.black;
 			Color plr2 = Color.red;
 			int x,y,width = 5, height = 5;
 			
@@ -47,7 +47,10 @@ public class PanelBarricades extends Panel{
 			    
 			    for (Node n : _board.getGraph().getList()) {
 			    	//int id = n.getCase().getFirstPiece().getPlayer().getColor();
-			    	int id = 2;
+			    	int id = 0;
+			    	if (!n.getCase().isEmpty()) {
+			    		id = n.getCase().getFirstPiece().getPlayer().getColor();
+			    	}
 			    	Coordinates coord = n.getCoordinates();
 		    		x = coord.getFirstCoordinate();
 		    		y = coord.getSecondCoordinate();
@@ -56,7 +59,7 @@ public class PanelBarricades extends Panel{
 			    		g.setColor(plr1);
 			    		g.fillRect(x,y,width,height);
 			    	}
-			    	else {
+			    	else if (id == 2){
 			      		g.setColor(plr2);
 			    		g.fillRect(x,y,width,height);
 			    	}

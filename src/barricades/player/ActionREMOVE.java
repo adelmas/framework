@@ -32,7 +32,7 @@ public class ActionREMOVE extends Action {
 		Coordinates coord = new Coordinates(getCoordinate(0));
 		
 		
-		if (!board.isEmpty(coord) /*&& board.getCase(coord).getFirstPiece().getPlayer() != getPlayer()*/) {
+		if (!board.isEmpty(coord) && board.getCase(new Coordinates(getCoordinate(0))).getPieces().size() != 0) {
 			Case c = board.getCase(coord);
 			setPlayer(c.getFirstPiece().getPlayer());
 			c.removePiece(c.getFirstPiece());

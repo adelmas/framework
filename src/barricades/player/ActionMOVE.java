@@ -42,7 +42,7 @@ public class ActionMOVE extends Action {
 		int Num = getCoordinate(0);
 		Board board = getBoard();
 		
-		if (!board.isEmpty(new Coordinates(Num)) && !board.isEmpty(new Coordinates(_oldNum)) && (Math.abs(_oldNum - Num) <= 1)) {
+		if (!board.isEmpty(new Coordinates(Num)) && !board.isEmpty(new Coordinates(_oldNum)) && (Math.abs(_oldNum - Num) <= 1)&& board.getCase(new Coordinates(Num)).getPieces().size() == 0 && board.getCase(new Coordinates(_oldNum)).getPieces().size() != 0) {
 			Case c = board.getCase(new Coordinates(_oldNum));
 			/*if(c.getFirstPiece().getPlayer().equals(super.getPlayer())) {*/
 				board.getCase(new Coordinates(getCoordinate(0))).addPiece(new Piece(getPlayer(), 1));
