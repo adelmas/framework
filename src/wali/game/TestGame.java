@@ -25,15 +25,11 @@ import framework.player.Action;
 import framework.player.Player;
 
 public class TestGame extends Game implements MouseListener, ActionListener {
-	private UndoManager _undoManager = new UndoManager();
-	private UndoableListener _undoListener = new UndoableListener(_undoManager);
 	private int _phase = 0 ;
 	private int _nbCoups = 0;
 	private Coordinates _moveCoordinates;
 	private boolean _isCapture = false;
-	private boolean _isGameOver = false;
 	private PanelWali pWali;
-	static int score = 3;
 		
 	public void init() {
 		FrameWali f = new FrameWali(this);
@@ -87,10 +83,6 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 			}
 		}
 		return false;
-	}
-	
-	public boolean getGameOver() {
-		return _isGameOver;
 	}
 	
 	public void coup(Coordinates co){
@@ -152,7 +144,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 		}
 		
 		/* Action registration */
-		_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
+		getUndoableListener().undoableEditHappened(new UndoableEditEvent(this, action));
 		
 		if (_phase == 1) {
 			if (plusDeDeuxPions((BoardWali)getBoard(), action.getCoordinate(0), action.getCoordinate(1), player)) {
@@ -198,7 +190,7 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 					return;
 				}
 				nextPlayer();
-				_undoListener.undoableEditHappened(new UndoableEditEvent(this, action));
+				getUndoableListener().undoableEditHappened(new UndoableEditEvent(this, action));
 				System.out.println("Score " + targetPlayer.getName() + " : " + targetPlayer.getScore());
 				_isCapture = false;
 			}
@@ -269,8 +261,9 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 		List<Player> listPlayers = new LinkedList<Player>();
 		Game g = new TestGame();
 		
-		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", score));
-		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", score));
+		g.setStartScore(3);
+		listPlayers.add(new HumanPlayer("player1", 1, 1, "X", g.getStartScore()));
+		listPlayers.add(new HumanPlayer("player2", 2, 2, "O", g.getStartScore()));
 
 		Board b = new BoardWali();
 		g.setBoard(b);
@@ -281,27 +274,27 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 
 	@Override
 	public void gameOver() {
-		_isGameOver = true;
+		setGameOver(true);
 		setChanged();
 		notifyObservers();
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
+		UndoManager undoManager = getUndoManager();
 		if((b.getText().equals("New game"))){
-			resetPlayers(score);
+			resetPlayers(getStartScore());
 			Board board = getBoard();
 			board.reset();
-			_undoManager.discardAllEdits();
+			undoManager.discardAllEdits();
 			_nbCoups = 0;
 			_phase = 0;
 			_isCapture = false;
-			_isGameOver = false;
+			setGameOver(false);
 		}
 		else if((b.getText().equals("Undo"))){
-			if (_undoManager.canUndo()) {
-				_isGameOver = false;
-				_undoManager.undo();
+			if (undoManager.canUndo()) {
+				undoManager.undo();
 				prevPlayer();
 				if (_nbCoups != 0) {
 					_nbCoups--;
@@ -309,15 +302,9 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 				updatePhase();	
 			}
 		}
-		else if((b.getText().equals("Give up"))){
-			getCurrentPlayer().setScore(0);
-			nextPlayer();
-			_isGameOver = true;
-		}
 		else{
-			if (_undoManager.canRedo()) {
-				_isGameOver = false;
-				_undoManager.redo();
+			if (undoManager.canRedo()) {
+				undoManager.redo();
 				nextPlayer();
 				_nbCoups++;
 				updatePhase();
@@ -329,4 +316,5 @@ public class TestGame extends Game implements MouseListener, ActionListener {
 		notifyObservers();
 	}
 }
+
 
