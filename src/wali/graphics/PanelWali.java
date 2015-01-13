@@ -57,7 +57,7 @@ public class PanelWali extends Panel {
 		
 		for (Player p : g.getPlayers()){
 			infoGame += p.getName() + " : " + p.getScore()+"\n";
-			if(p.getScore()> maxScore){
+			if(p.getScore() > maxScore){
 				maxScore = p.getScore();
 				winner = p;
 			}
